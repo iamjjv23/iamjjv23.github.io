@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JJV</title>
+	 <link rel="icon" type="image/x-icon" href="favicon.png">
+	 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+	<link rel="stylesheet" type="text/css" href="style.css">
+	
+</head>
+<body>
+	<body>
+    <div class="music-container">
+		<h1 align="center">DAW</h1>
+        <div class="music-body">
+            <div class="layer">
+                <div class="volume-slider">
+                <span class="bar"></span>
+                <input type='range' min='0.01' max='1' value='1' step='0.01' class="volumerange"/>
+                </div>
+            </div>
+            <div class="top-icons">
+                <button class="volume btn" id="volume">
+                    <i id="volumeicon" class="fas fa-volume-up"></i>
+                </button>
+                
+            </div>
+            <div class="music-img">
+                <img src="img/wmn.jpg" alt="song-images" id="img">
+            </div>
+            <div class="music-info">
+                <h2 id="title">Women's Day - Launching</h2>
+            </div>
+            <audio src="ep/ep1.mp3" id="audio"></audio>
+            <div class="music-progress">
+                <div class="progress-bar">
+                    <span class="progress-line"></span>
+                    <input type='range' min='0' max='100' value='0' class="progress" id="progress"/>
+                </div>
+                <div class="duration">
+                    <span class="current-time">00:00</span>
+                    <span class="duration-time">00:00</span>
+                </div>
+            </div>
+            <div class="music-controls">
+                <button class="repeat btn" id="repeat">
+                    <i class="fas fa-redo-alt"></i>
+                </button>
+                <div class="main-controls">
+                    <button class="prevbtn" id="prevbtn">
+                        <i class="fas fa-backward"></i>
+                    </button>
+                    <button class="playpause" id="playpause">
+                        <i id="playpause-btn"class="fas fa-play"></i>
+                    </button>
+                    <button class="nextbtn" id="nextbtn">
+                        <i class="fas fa-forward"></i>
+                    </button>
+                </div>
+                <button class="like btn" id="like">
+                    <i id="likeicon" class="far fa-heart"></i>
+                </button>
+            </div>
+            
+        </div>
+    </div>
+	
+	<br><br><br>
+	
+	<div class="fic"><center>
+	<div id="logo-holder">
+    <img src="img/lgg.png" class="image lgg" />
+    <div class="text">JESWIN JOSE VITHAYATHIL</div>
+	</center></div>
+	
+	
+    <script src="daw.js"></script>
+</body>
+	
+	
+<a href="../index.html" class="float">
+<i class="fa fa-home my-float"></i>
+</a>
+	
+</body></html>
