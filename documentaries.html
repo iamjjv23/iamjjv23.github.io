@@ -1,1 +1,102 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8">     <meta http-equiv="X-UA-Compatible" content="IE=edge">     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 	 	<title>JJV</title> 	 <link rel="icon" type="image/x-icon" href="favicon.png">     <link rel="stylesheet" href="files/player.css"> 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" /> </head> <body> <div id="playlist">   <div id="video-dis">     <iframe id="display-frame" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>   </div>   <div id="v-list" class="video-li">     <div id="vli-info">       <div id="upper-info">         <div id="li-titles">           <div class="title1">Documentary Films</div>           <div class="sub-title">             <a class="channel" href="index.html">Jeswin Jose Vithayathil</a> 			           </div>         </div>         <!-- HOME BUUTTON --> 		 <span id="video-count">1 / 2</span>       </div>         </div>     <div id="vli-videos"> 	 	       <div class="video-con active-con" video="https://drive.google.com/file/d/1ks_bGTqR2KXiL-y_nVuyMN18UvIIkzID/preview">         <div class="index title">0</div>                 <div class="v-titles">           <div class="title">Bhumiyile Daivangal - Theyyam</div>           <div class="sub-title">             <a> A Documentary Film on Traditional Folk Art Form</a>           </div>         </div>       </div>       <div class="video-con" video="https://drive.google.com/file/d/1jeolkiFFGMZFefJOavn27eJTcdQOpmak/preview">         <div class="index title">0</div>                 <div class="v-titles">           <div class="title">Ammachi Kada (Ammachi Hotel)</div>           <div class="sub-title">             <a>A Documentary Film on Canteen Run by Sarasamma, in Alapuzha District of Kerala</a>           </div>         </div>       </div>        <div class="video-con" video="https://drive.google.com/file/d/1MC5BltvZeUfna6EOAzP4qj_tJ2CUxwu2/preview">         <div class="index title">0</div>                 <div class="v-titles">           <div class="title">Goldsmith</div>           <div class="sub-title">             <a>A Documentary Film on Goldsmith's Hereditary(Inherited Family)</a>           </div>         </div>       </div>     </div>   </div> </div>   <a href="index.html" class="float"> <i class="fa fa-home my-float"></i> </a> 	 	 <script type="text/javascript">        // utlity function qs(elem) {   return document.querySelector(elem); } function qsa(elem) {   return document.querySelectorAll(elem); } // globals var activeCon = 0,   totalCons = 0; // elements const v_cons = qsa(".video-con"),   a_cons = qsa(".active-con"),   v_count = qs("#video-count"),   info_btns = qsa("#lower-info div"),   drop_icon = qs("#drop-icon"),   video_list = qs("#v-list"),   display = qs("#display-frame"); // activate container function activate(con) {   deactivateAll();   indexAll();   countVideos(con.querySelector(".index").innerHTML);   con.classList.add("active-con");   con.querySelector(".index").innerHTML = "►"; } // deactivate all container function deactivateAll() {   v_cons.forEach((container) => {     container.classList.remove("active-con");   }); } // index containers function indexAll() {   var i = 1;   v_cons.forEach((container) => {     container.querySelector(".index").innerHTML = i;     i++;   }); } // update video count function countVideos(active) {   v_count.innerHTML = active + " / " + v_cons.length; } // icon activate function toggle_icon(btn) {   if (btn.classList.contains("icon-active")) {     btn.classList.remove("icon-active");   } else btn.classList.add("icon-active"); } // toggle video list function toggle_list() {   if (video_list.classList.contains("li-collapsed")) {     drop_icon.style.transform = "rotate(0deg)";     video_list.classList.remove("li-collapsed");   } else {     drop_icon.style.transform = "rotate(180deg)";     video_list.classList.add("li-collapsed");   } } function loadVideo(url) {   display.setAttribute("src", url); } //****************** // Main Function heres //****************** window.addEventListener("load", function () {   // starting calls   indexAll(); // container indexes   countVideos(1);   activate(v_cons[0]);   loadVideo(v_cons[0].getAttribute("video"));   // Event handeling goes here   // on each video container click   v_cons.forEach((container) => {     container.addEventListener("click", () => {       activate(container);       loadVideo(container.getAttribute("video"));     });   });   // on each button click   info_btns.forEach((button) => {     button.addEventListener("click", () => {       toggle_icon(button);     });   });   // drop icon click   drop_icon.addEventListener("click", () => {     toggle_list();   }); });     </script> </body></html>
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8">     <meta http-equiv="X-UA-Compatible" content="IE=edge">     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 	 	<title>JJV</title> 	 <link rel="icon" type="image/x-icon" href="favicon.png">     <link rel="stylesheet" href="files/player.css"> 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" /> </head> <body> <div id="playlist">   <div id="video-dis">     <iframe id="display-frame" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>   </div>   <div id="v-list" class="video-li">     <div id="vli-info">       <div id="upper-info">         <div id="li-titles">           <div class="title1">Documentary Films</div>           <div class="sub-title">             <a class="channel" href="index.html">Jeswin Jose Vithayathil</a> 			           </div>         </div>         <!-- HOME BUUTTON --> 		 <span id="video-count">1 / 2</span>       </div>         </div>     <div id="vli-videos"> 	 	       <div class="video-con active-con" video="https://drive.google.com/file/d/1ks_bGTqR2KXiL-y_nVuyMN18UvIIkzID/preview">         <div class="index title">0</div>                 <div class="v-titles">           <div class="title">Bhumiyile Daivangal - Theyyam</div>           <div class="sub-title">             <a> A Documentary Film on Traditional Folk Art Form</a>           </div>         </div>       </div>       <div class="video-con" video="https://drive.google.com/file/d/1jeolkiFFGMZFefJOavn27eJTcdQOpmak/preview">         <div class="index title">0</div>                 <div class="v-titles">           <div class="title">Ammachi Kada (Ammachi Hotel)</div>           <div class="sub-title">             <a>A Documentary Film on Canteen Run by Sarasamma, in Alapuzha District of Kerala</a>           </div>         </div>       </div>        <div class="video-con" video="https://drive.google.com/file/d/1MC5BltvZeUfna6EOAzP4qj_tJ2CUxwu2/preview">         <div class="index title">0</div>                 <div class="v-titles">           <div class="title">Goldsmith</div>           <div class="sub-title">             <a>A Documentary Film on Goldsmith's Hereditary(Inherited Family)</a>           </div>         </div>       </div>     </div>   </div> </div>   <a href="index.html" class="float"> <i class="fa fa-home my-float"></i> </a> 	
+	
+<script type="text/javascript">
+       // utlity
+function qs(elem) {
+  return document.querySelector(elem);
+}
+function qsa(elem) {
+  return document.querySelectorAll(elem);
+}
+
+// globals
+var activeCon = 0,
+  totalCons = 0;
+
+// elements
+const v_cons = qsa(".video-con"),
+  a_cons = qsa(".active-con"),
+  v_count = qs("#video-count"),
+  info_btns = qsa("#lower-info div"),
+  drop_icon = qs("#drop-icon"),
+  video_list = qs("#v-list"),
+  display = qs("#display-frame");
+
+// activate container
+function activate(con) {
+  deactivateAll();
+  indexAll();
+  countVideos(con.querySelector(".index").innerHTML);
+  con.classList.add("active-con");
+  con.querySelector(".index").innerHTML = "►";
+}
+// deactivate all container
+function deactivateAll() {
+  v_cons.forEach((container) => {
+    container.classList.remove("active-con");
+  });
+}
+// index containers
+function indexAll() {
+  var i = 1;
+  v_cons.forEach((container) => {
+    container.querySelector(".index").innerHTML = i;
+    i++;
+  });
+}
+// update video count
+function countVideos(active) {
+  v_count.innerHTML = active + " / " + v_cons.length;
+}
+// icon activate
+function toggle_icon(btn) {
+  if (btn.classList.contains("icon-active")) {
+    btn.classList.remove("icon-active");
+  } else btn.classList.add("icon-active");
+}
+// toggle video list
+function toggle_list() {
+  if (video_list.classList.contains("li-collapsed")) {
+    drop_icon.style.transform = "rotate(0deg)";
+    video_list.classList.remove("li-collapsed");
+  } else {
+    drop_icon.style.transform = "rotate(180deg)";
+    video_list.classList.add("li-collapsed");
+  }
+}
+function loadVideo(url) {
+  display.setAttribute("src", url);
+}
+
+//******************
+// Main Function heres
+//******************
+window.addEventListener("load", function () {
+  // starting calls
+  indexAll(); // container indexes
+  countVideos(1);
+  activate(v_cons[0]);
+  loadVideo(v_cons[0].getAttribute("video"));
+
+  // Event handeling goes here
+  // on each video container click
+  v_cons.forEach((container) => {
+    container.addEventListener("click", () => {
+      activate(container);
+      loadVideo(container.getAttribute("video"));
+    });
+  });
+  // on each button click
+  info_btns.forEach((button) => {
+    button.addEventListener("click", () => {
+      toggle_icon(button);
+    });
+  });
+  // drop icon click
+  drop_icon.addEventListener("click", () => {
+    toggle_list();
+  });
+});
+
+    </script>
+</body></html>
