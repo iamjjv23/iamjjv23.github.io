@@ -1,1 +1,292 @@
-<!DOCTYPE html> <html lang="en"><head> <meta http-equiv="content-type" content="text/html; charset=UTF-8">     <meta charset="UTF-8">     <meta name="viewport" content="width=device-width, initial-scale=1.0">     <title>JJV</title> 	 <link rel="icon" type="image/x-icon" href="favicon.png"> 	     	<link rel="stylesheet" type="text/css" href="files/pie.css"> 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" /> 	 	<script src="https://code.highcharts.com/highcharts.js"></script> 	 </head> <body>     <h1 align="center">Area of Interests</h1> 	 <figure class="highcharts-figure">     <div id="container"></div>     <p class="highcharts-description">         Intrested in Video Production, and Passionate in Video Editing and Direction. <br>Softwares: Avid Media Composer, Adobe Premiere Pro, Final Cut Pro, Danvinci,After Effects, Nuke, Mocha Pro, Maya 3d, Blender     </p> </figure> 		 <figure class="highcharts-figure">     <div id="container1"></div>     <p class="highcharts-description">         Intrested in Audio Production, and Passionate in Sound Design. <br>Softwares: Pro Tools, Logic Pro, Adobe Audition, Cubase, Abelton     </p> </figure>		 				 				 <figure class="highcharts-figure">     <div id="container2"></div>     <p class="highcharts-description">         Intrested in Audio Production, and Passionate in Sound Design. <br>Softwares: Adobe Photoshop, Adobe Indesign, Adobe Illustrator, Figma     </p> </figure>	 <a href="index.html" class="float"> <i class="fa fa-home my-float"></i> </a>     <script type="text/javascript">         Highcharts.chart('container', {     chart: {         type: 'pie',         custom: {},         events: {             render() {                 const chart = this,                     series = chart.series[0];                 let customLabel = chart.options.chart.custom.label;                 if (!customLabel) {                     customLabel = chart.options.chart.custom.label =                         chart.renderer.label(                                                         '<strong>Visual</strong>'                         )                             .css({                                 color: '#000',                                 textAnchor: 'middle'                             })                             .add();                 }                 const x = series.center[0] + chart.plotLeft,                     y = series.center[1] + chart.plotTop -                     (customLabel.attr('height') / 2);                 customLabel.attr({                     x,                     y                 });                 // Set font size based on chart diameter                 customLabel.css({                     fontSize: `${series.center[2] / 12}px`                 });             }         }     },     accessibility: {         point: {             valueSuffix: '%'         }     },     title: {         text: ''     },     subtitle: {         text: ''     },     tooltip: {         pointFormat: '{series.name}: <b>{point.percentage:.0f}%</b>'     },     legend: {         enabled: false     },     plotOptions: {         series: {             allowPointSelect: true,             cursor: 'pointer',             borderRadius: 8,             dataLabels: [{                 enabled: true,                 distance: 20,                 format: '{point.name}'             }, {                 enabled: true,                 distance: -15,                 format: '{point.percentage:.0f}%',                 style: {                     fontSize: '0.9em'                 }             }],             showInLegend: true         }     },     series: [{         name: 'Expertise',         colorByPoint: true,         innerSize: '50%',         data: [{             name: 'Editing',             y: 45         }, {             name: 'Compositing',             y: 35         }, {             name: 'Visual Effects',             y: 20         }]     }] }); Highcharts.chart('container1', {     chart: {         type: 'pie',         custom: {},         events: {             render() {                 const chart = this,                     series = chart.series[0];                 let customLabel = chart.options.chart.custom.label;                 if (!customLabel) {                     customLabel = chart.options.chart.custom.label =                         chart.renderer.label(                                                        '<strong>Audio</strong>'                         )                             .css({                                 color: '#000',                                 textAnchor: 'middle'                             })                             .add();                 }                 const x = series.center[0] + chart.plotLeft,                     y = series.center[1] + chart.plotTop -                     (customLabel.attr('height') / 2);                 customLabel.attr({                     x,                     y                 });                 // Set font size based on chart diameter                 customLabel.css({                     fontSize: `${series.center[2] / 12}px`                 });             }         }     },     accessibility: {         point: {             valueSuffix: '%'         }     },     title: {         text: ''     },     subtitle: {         text: ''     },     tooltip: {         pointFormat: '{series.name}: <b>{point.percentage:.0f}%</b>'     },     legend: {         enabled: false     },     plotOptions: {         series: {             allowPointSelect: true,             cursor: 'pointer',             borderRadius: 8,             dataLabels: [{                 enabled: true,                 distance: 20,                 format: '{point.name}'             }, {                 enabled: true,                 distance: -15,                 format: '{point.percentage:.0f}%',                 style: {                     fontSize: '0.9em'                 }             }],             showInLegend: true         }     },     series: [{         name: 'Expertise',         colorByPoint: true,         innerSize: '50%',         data: [{             name: 'Mixing',             y: 40         }, {             name: 'Live Sound',             y: 45         }, {             name: 'Record/Dub',             y: 15         }]     }] }); Highcharts.chart('container2', {     chart: {         type: 'pie',         custom: {},         events: {             render() {                 const chart = this,                     series = chart.series[0];                 let customLabel = chart.options.chart.custom.label;                 if (!customLabel) {                     customLabel = chart.options.chart.custom.label =                         chart.renderer.label(                                                        '<strong>Composite</strong>'                         )                             .css({                                 color: '#000',                                 textAnchor: 'middle'                             })                             .add();                 }                 const x = series.center[0] + chart.plotLeft,                     y = series.center[1] + chart.plotTop -                     (customLabel.attr('height') / 2);                 customLabel.attr({                     x,                     y                 });                 // Set font size based on chart diameter                 customLabel.css({                     fontSize: `${series.center[2] / 12}px`                 });             }         }     },     accessibility: {         point: {             valueSuffix: '%'         }     },     title: {         text: ''     },     subtitle: {         text: ''     },     tooltip: {         pointFormat: '{series.name}: <b>{point.percentage:.0f}%</b>'     },     legend: {         enabled: false     },     plotOptions: {         series: {             allowPointSelect: true,             cursor: 'pointer',             borderRadius: 8,             dataLabels: [{                 enabled: true,                 distance: 20,                 format: '{point.name}'             }, {                 enabled: true,                 distance: -15,                 format: '{point.percentage:.0f}%',                 style: {                     fontSize: '0.9em'                 }             }],             showInLegend: true         }     },     series: [{         name: 'Expertise',         colorByPoint: true,         innerSize: '50%',         data: [{             name: 'UI / UX',             y: 35         }, {             name: 'Graphics',             y: 60         }, {             name: 'Illustrations',             y: 5         }]     }] });     </script> </body></html>
+<!DOCTYPE html> <html lang="en"><head> <meta http-equiv="content-type" content="text/html; charset=UTF-8">     <meta charset="UTF-8">     <meta name="viewport" content="width=device-width, initial-scale=1.0">     <title>JJV</title> 	 <link rel="icon" type="image/x-icon" href="favicon.png"> 	     	<link rel="stylesheet" type="text/css" href="files/pie.css"> 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" /> 	 	<script src="https://code.highcharts.com/highcharts.js"></script> 	 </head> <body>     <h1 align="center">Area of Interests</h1> 	 <figure class="highcharts-figure">     <div id="container"></div>     <p class="highcharts-description">         Intrested in Video Production, and Passionate in Video Editing and Direction. <br>Softwares: Avid Media Composer, Adobe Premiere Pro, Final Cut Pro, Danvinci,After Effects, Nuke, Mocha Pro, Maya 3d, Blender     </p> </figure> 		 <figure class="highcharts-figure">     <div id="container1"></div>     <p class="highcharts-description">         Intrested in Audio Production, and Passionate in Sound Design. <br>Softwares: Pro Tools, Logic Pro, Adobe Audition, Cubase, Abelton     </p> </figure>		 				 				 <figure class="highcharts-figure">     <div id="container2"></div>     <p class="highcharts-description">         Intrested in Audio Production, and Passionate in Sound Design. <br>Softwares: Adobe Photoshop, Adobe Indesign, Adobe Illustrator, Figma     </p> </figure>	 <a href="index.html" class="float"> <i class="fa fa-home my-float"></i> </a>
+
+    <script type="text/javascript">
+        Highcharts.chart('container', {
+    chart: {
+        type: 'pie',
+        custom: {},
+        events: {
+            render() {
+                const chart = this,
+                    series = chart.series[0];
+                let customLabel = chart.options.chart.custom.label;
+
+                if (!customLabel) {
+                    customLabel = chart.options.chart.custom.label =
+                        chart.renderer.label(
+                            
+                            '<strong>Visual</strong>'
+                        )
+                            .css({
+                                color: '#000',
+                                textAnchor: 'middle'
+                            })
+                            .add();
+                }
+
+                const x = series.center[0] + chart.plotLeft,
+                    y = series.center[1] + chart.plotTop -
+                    (customLabel.attr('height') / 2);
+
+                customLabel.attr({
+                    x,
+                    y
+                });
+                // Set font size based on chart diameter
+                customLabel.css({
+                    fontSize: `${series.center[2] / 12}px`
+                });
+            }
+        }
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    title: {
+        text: ''
+    },
+    subtitle: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.0f}%</b>'
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            borderRadius: 8,
+            dataLabels: [{
+                enabled: true,
+                distance: 20,
+                format: '{point.name}'
+            }, {
+                enabled: true,
+                distance: -15,
+                format: '{point.percentage:.0f}%',
+                style: {
+                    fontSize: '0.9em'
+                }
+            }],
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Expertise',
+        colorByPoint: true,
+        innerSize: '50%',
+        data: [{
+            name: 'Editing',
+            y: 45
+        }, {
+            name: 'Compositing',
+            y: 35
+        }, {
+            name: 'Visual Effects',
+            y: 20
+        }]
+    }]
+});
+
+
+
+
+Highcharts.chart('container1', {
+    chart: {
+        type: 'pie',
+        custom: {},
+        events: {
+            render() {
+                const chart = this,
+                    series = chart.series[0];
+                let customLabel = chart.options.chart.custom.label;
+
+                if (!customLabel) {
+                    customLabel = chart.options.chart.custom.label =
+                        chart.renderer.label(
+                           
+                            '<strong>Audio</strong>'
+                        )
+                            .css({
+                                color: '#000',
+                                textAnchor: 'middle'
+                            })
+                            .add();
+                }
+
+                const x = series.center[0] + chart.plotLeft,
+                    y = series.center[1] + chart.plotTop -
+                    (customLabel.attr('height') / 2);
+
+                customLabel.attr({
+                    x,
+                    y
+                });
+                // Set font size based on chart diameter
+                customLabel.css({
+                    fontSize: `${series.center[2] / 12}px`
+                });
+            }
+        }
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    title: {
+        text: ''
+    },
+    subtitle: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.0f}%</b>'
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            borderRadius: 8,
+            dataLabels: [{
+                enabled: true,
+                distance: 20,
+                format: '{point.name}'
+            }, {
+                enabled: true,
+                distance: -15,
+                format: '{point.percentage:.0f}%',
+                style: {
+                    fontSize: '0.9em'
+                }
+            }],
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Expertise',
+        colorByPoint: true,
+        innerSize: '50%',
+        data: [{
+            name: 'Mixing',
+            y: 40
+        }, {
+            name: 'Live Sound',
+            y: 45
+        }, {
+            name: 'Record/Dub',
+            y: 15
+        }]
+    }]
+});
+
+
+
+Highcharts.chart('container2', {
+    chart: {
+        type: 'pie',
+        custom: {},
+        events: {
+            render() {
+                const chart = this,
+                    series = chart.series[0];
+                let customLabel = chart.options.chart.custom.label;
+
+                if (!customLabel) {
+                    customLabel = chart.options.chart.custom.label =
+                        chart.renderer.label(
+                           
+                            '<strong>Composite</strong>'
+                        )
+                            .css({
+                                color: '#000',
+                                textAnchor: 'middle'
+                            })
+                            .add();
+                }
+
+                const x = series.center[0] + chart.plotLeft,
+                    y = series.center[1] + chart.plotTop -
+                    (customLabel.attr('height') / 2);
+
+                customLabel.attr({
+                    x,
+                    y
+                });
+                // Set font size based on chart diameter
+                customLabel.css({
+                    fontSize: `${series.center[2] / 12}px`
+                });
+            }
+        }
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    title: {
+        text: ''
+    },
+    subtitle: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.0f}%</b>'
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            borderRadius: 8,
+            dataLabels: [{
+                enabled: true,
+                distance: 20,
+                format: '{point.name}'
+            }, {
+                enabled: true,
+                distance: -15,
+                format: '{point.percentage:.0f}%',
+                style: {
+                    fontSize: '0.9em'
+                }
+            }],
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Expertise',
+        colorByPoint: true,
+        innerSize: '50%',
+        data: [{
+            name: 'UI / UX',
+            y: 35
+        }, {
+            name: 'Graphics',
+            y: 60
+        }, {
+            name: 'Illustrations',
+            y: 5
+        }]
+    }]
+});
+
+
+
+
+
+
+    </script>
+
+</body></html>
