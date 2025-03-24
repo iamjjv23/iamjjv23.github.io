@@ -4,6 +4,64 @@
 let scene = document.getElementById('scene')
 let parallax = new Parallax(scene) 
 document.addEventListener('contextmenu', event => event.preventDefault());</script>
-<div class="blog-slider">   <div class="blog-slider__wrp swiper-wrapper">        <div class="blog-slider__item swiper-slide">       <div class="blog-slider__img">                 <img src="blog/rider.jpg" alt="Century Ride">       </div>       <div class="blog-slider__content">         <span class="blog-slider__code">Hobbies</span>         <div class="blog-slider__title">My 100KM Bicycle Ride: A Journey of Endurance and Freedom</div>         <div class="blog-slider__text">There’s something about hitting a century on a bicycle that feels like a rite of passage. It’s not just about the distance—it’s about the challenge, the endurance, and the sheer joy of the ride. I recently completed a 100km ride, and I want to share the experience, the highs, the struggles, and what I learned along the way. </div>         <a href="#" class="blog-slider__button">READ MORE</a>       </div>     </div> 	     <div class="blog-slider__item swiper-slide">       <div class="blog-slider__img">         <img src="blog/bd.jpg" alt="Blood Donation">       </div>       <div class="blog-slider__content">         <span class="blog-slider__code">Hobbies</span>         <div class="blog-slider__title">The Life-Saving Habit: Regular blood donation is a truly remarkable and life-saving habit. </div>         <div class="blog-slider__text">In a world filled with fleeting trends and ever-changing routines, I’ve found a constant, fulfilling practice that stands out: donating blood. It’s more than just a good deed; it’s become my best habit, a regular reminder of the power we hold to make a real difference. </div>         <a href="#" class="blog-slider__button">READ MORE</a>       </div>     </div>               </div>   <div class="blog-slider__pagination"></div> </div>
-<script>var swiper = new Swiper('.blog-slider', {       spaceBetween: 30,       effect: 'fade',       loop: true,       mousewheel: {         invert: false,       },       // autoHeight: true,       pagination: {         el: '.blog-slider__pagination',         clickable: true,       }     }); 	 </script>
+
+
+<div class="blog-slider">
+  <div class="blog-slider__wrp swiper-wrapper">
+  
+     <div class="blog-slider__item swiper-slide">
+      <div class="blog-slider__img">
+        
+        <img src="blog/rider.jpg" alt="Century Ride">
+      </div>
+      <div class="blog-slider__content">
+        <span class="blog-slider__code">Hobbies</span>
+        <div class="blog-slider__title">My 100KM Bicycle Ride: A Journey of Endurance and Freedom</div>
+        <div class="blog-slider__text">There’s something about hitting a century on a bicycle that feels like a rite of passage. It’s not just about the distance—it’s about the challenge, the endurance, and the sheer joy of the ride. I recently completed a 100km ride, and I want to share the experience, the highs, the struggles, and what I learned along the way. </div>
+        <a href="#" class="blog-slider__button">READ MORE</a>
+      </div>
+    </div>
+	
+    <div class="blog-slider__item swiper-slide">
+      <div class="blog-slider__img">
+        <img src="blog/bd.jpg" alt="Blood Donation">
+      </div>
+      <div class="blog-slider__content">
+        <span class="blog-slider__code">Hobbies</span>
+        <div class="blog-slider__title">The Life-Saving Habit: Regular blood donation is a truly remarkable and life-saving habit. </div>
+        <div class="blog-slider__text">In a world filled with fleeting trends and ever-changing routines, I’ve found a constant, fulfilling practice that stands out: donating blood. It’s more than just a good deed; it’s become my best habit, a regular reminder of the power we hold to make a real difference.
+</div>
+        <a href="#" class="blog-slider__button">READ MORE</a>
+      </div>
+    </div>
+    
+    
+    
+  </div>
+  <div class="blog-slider__pagination"></div>
+</div>
+
+
+
+
+
+	
+<script>
+var swiper = new Swiper('.blog-slider', {
+      spaceBetween: 30,
+      effect: 'fade',
+      loop: true,
+      mousewheel: {
+        invert: false,
+      },
+      // autoHeight: true,
+      pagination: {
+        el: '.blog-slider__pagination',
+        clickable: true,
+      }
+    });
+	
+</script>
+
+
 </body></html>
