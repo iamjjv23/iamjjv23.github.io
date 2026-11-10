@@ -1,0 +1,492 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #f4ebe2;
+  color: #2c221e;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Top Progress Bar (Flush Overlay, Zero Layout Space) */
+.progress-bar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: transparent;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #2d4d7c, #e5989b, #e2b458);
+  transition: width 0.05s linear;
+}
+
+/* =========================================================
+   SUBTLE FLOATING AUDIO TOGGLE BUTTON (TOP RIGHT)
+   ========================================================= */
+.audio-toggle {
+  position: fixed;
+  top: 16px;
+  right: 18px;
+  z-index: 110;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(255, 252, 248, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(180, 140, 125, 0.35);
+  color: #4a3831;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(44, 34, 30, 0.1);
+  transition: background 0.25s ease, transform 0.2s ease, border-color 0.25s ease;
+}
+
+.audio-toggle:hover {
+  background: rgba(255, 253, 250, 0.94);
+  transform: translateY(-1px);
+}
+
+.audio-toggle.playing {
+  border-color: rgba(158, 71, 88, 0.55);
+  color: #8c3b4a;
+}
+
+.audio-icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.audio-icon.hidden {
+  display: none;
+}
+
+/* Fixed Full-Viewport 3D Stage (Zero Top Margin or Padding on Mobile & Desktop) */
+.stage {
+  position: fixed;
+  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+#webglContainer {
+  position: absolute;
+  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+}
+
+#webglContainer canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ceiling Light Match-Cut Warm Bloom Overlay (Scene 6 -> Scene 7) */
+.light-transition-bloom {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    circle at 50% 42%,
+    rgba(255, 251, 235, 0.96) 0%,
+    rgba(255, 238, 195, 0.75) 45%,
+    rgba(248, 235, 220, 0.2) 100%
+  );
+  transition: opacity 0.06s linear;
+}
+
+/* Soft Depth-of-Field Vignette */
+.dof-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(255, 250, 245, 0) 58%,
+    rgba(244, 228, 218, 0.3) 88%,
+    rgba(229, 205, 195, 0.65) 100%
+  );
+}
+
+/* =========================================================
+   SCENE 09 TOP SKY BANNER (DOUBLED COUPLE NAME FONT SIZE)
+   ========================================================= */
+.wedding-sky-banner {
+  position: absolute;
+  top: 2.5vh;
+  left: 50%;
+  transform: translate(-50%, -14px);
+  width: min(95vw, 920px);
+  z-index: 11;
+  text-align: center;
+  pointer-events: none;
+  padding: 12px 24px;
+  border-radius: 22px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 253, 250, 0.9) 0%,
+    rgba(248, 242, 236, 0.62) 64%,
+    rgba(248, 242, 236, 0) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.wedding-sky-banner.visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.wedding-kicker {
+  display: block;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: clamp(0.75rem, 1.3vw, 0.95rem);
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #8c5864;
+  margin-bottom: 4px;
+}
+
+.wedding-kicker1 {
+  display: block;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: clamp(0.5rem, 0.6vw, 0.65rem);
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #8c5864;
+  margin-bottom: 4px;
+}
+
+/* Doubled Couple Name Font Size */
+
+
+
+.wedding-names {
+  font-size: clamp(3.6rem, 8vw, 6.1rem);
+  font-weight: 600;
+  font-style: bold;
+  color: #2b201c;
+  letter-spacing: 0.02em;
+  line-height: 1.06;
+  text-shadow:
+    0 3px 22px rgba(255, 255, 255, 0.98),
+    0 0 35px rgba(255, 253, 250, 0.95);
+}
+
+.wedding-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 6px auto 0;
+  width: min(70%, 320px);
+  color: #c8963e;
+  font-size: 1rem;
+}
+
+.wedding-divider::before,
+.wedding-divider::after {
+  content: '';
+  flex: 1;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, #c8963e, transparent);
+}
+
+/* =========================================================
+   SCENE 09 BOTTOM BANNER (DOUBLED DATE & TIME + GOOGLE MAPS BUTTON)
+   ========================================================= */
+.wedding-bottom-banner {
+  position: absolute;
+  bottom: 3.2vh;
+  left: 50%;
+  transform: translate(-50%, 14px);
+  width: min(95vw, 880px);
+  z-index: 15;
+  text-align: center;
+  pointer-events: none;
+  padding: 16px 26px;
+  border-radius: 22px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 253, 250, 0.96) 0%,
+    rgba(250, 244, 238, 0.88) 74%,
+    rgba(250, 244, 238, 0) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.wedding-bottom-banner.visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+}
+
+/* Doubled Date & Time Font Size */
+.wedding-date {
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: clamp(1.75rem, 2.9vw, 2.15rem);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #2b201c;
+  line-height: 1.2;
+  margin-bottom: 6px;
+  text-shadow: 0 2px 14px rgba(255, 255, 255, 0.98);
+}
+
+.wedding-venue {
+  font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+  font-style: italic;
+  color: #5a463f;
+  margin-bottom: 14px;
+  text-shadow: 0 1px 10px rgba(255, 255, 255, 0.98);
+}
+
+.maps-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 24px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #9e4758 0%, #c87d55 100%);
+  color: #ffffff;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: clamp(0.84rem, 1.35vw, 0.96rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(158, 71, 88, 0.34);
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.maps-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(158, 71, 88, 0.48);
+}
+
+.maps-icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   CINEMATIC SUBTITLE OVERLAY (SCENES 01 - 08 ONLY)
+   ========================================================= */
+.subtitle-overlay {
+  position: absolute;
+  bottom: 4.2vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92vw, 860px);
+  z-index: 10;
+  text-align: center;
+  pointer-events: none;
+  display: grid;
+  padding: 12px 18px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(252, 247, 242, 0.9) 0%,
+    rgba(252, 247, 242, 0) 78%
+  );
+  transition: opacity 0.35s ease;
+}
+
+.subtitle-overlay.hidden {
+  opacity: 0;
+}
+
+.subtitle-slide {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.subtitle-slide.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.subtitle-chapter {
+  display: block;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: clamp(0.68rem, 1.15vw, 0.8rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #a45a68;
+  margin-bottom: 4px;
+}
+
+.subtitle-heading {
+  font-size: clamp(1.15rem, 2.3vw, 1.85rem);
+  font-weight: 600;
+  font-style: italic;
+  color: #2b201c;
+  line-height: 1.22;
+  margin-bottom: 6px;
+  text-shadow: 0 2px 14px rgba(255, 253, 250, 0.98);
+}
+
+.subtitle-text {
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: clamp(0.85rem, 1.35vw, 1.04rem);
+  font-weight: 450;
+  line-height: 1.5;
+  color: #4a3c37;
+  max-width: 690px;
+  margin: 0 auto;
+  text-shadow: 0 1px 10px rgba(255, 253, 250, 0.98);
+}
+
+/* Scroll Hint */
+.scroll-hint {
+  position: absolute;
+  bottom: 1vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7c6860;
+  transition: opacity 0.4s ease;
+}
+
+.mouse-icon {
+  width: 16px;
+  height: 25px;
+  border: 1.5px solid #7c6860;
+  border-radius: 9px;
+  position: relative;
+}
+
+.wheel {
+  width: 3px;
+  height: 5px;
+  background: #a45a68;
+  border-radius: 2px;
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scrollWheel 1.6s infinite;
+}
+
+@keyframes scrollWheel {
+  0% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, 8px); }
+}
+
+/* Slow, Deliberate Scroll Track (160vh per step = 1440vh total) */
+.scroll-track {
+  position: relative;
+  z-index: 5;
+  pointer-events: none;
+  margin: 0;
+  padding: 0;
+}
+
+.step {
+  height: 160vh;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  html,
+  body,
+  .stage,
+  #webglContainer {
+    top: 0;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .audio-toggle {
+    top: 12px;
+    right: 12px;
+    padding: 6px 11px;
+    font-size: 0.68rem;
+  }
+
+  .wedding-sky-banner {
+    top: 1.8vh;
+    padding: 8px 12px;
+  }
+
+  .wedding-names {
+    font-size: clamp(2.65rem, 10.5vw, 4.2rem);
+  }
+  
+   .wedding-names1 {
+    font-size: clamp(.65rem, 3.5vw, 1.2rem);
+  }
+
+  .wedding-bottom-banner {
+    bottom: 2.2vh;
+    width: 96vw;
+    padding: 12px 14px;
+  }
+
+  .wedding-date {
+    font-size: clamp(1.25rem, 4.8vw, 1.75rem);
+  }
+
+  .subtitle-overlay {
+    bottom: 3.5vh;
+    width: 96vw;
+    padding: 8px 10px;
+  }
+}
