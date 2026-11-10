@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>Wedding Story</title>
+  <title>Jeswin weds Edwina — Wedding Story</title>
   <link rel="stylesheet" href="style.css" />
-  
-
 </head>
 <body>
 
@@ -36,22 +34,23 @@
     <!-- Ceiling Light Match-Cut Warm Bloom Overlay (Scene 6 -> Scene 7) -->
     <div class="light-transition-bloom" id="lightBloom"></div>
 
-    <!-- Soft Pastel Vignette -->
+    <!-- Soft Palette Vignette -->
     <div class="dof-vignette"></div>
 
-    <!-- SCENE 09 TOP SKY OVERLAY: Couple Names in the Sky (Doubled Font Size) -->
+    <!-- SCENE 09 TOP SKY OVERLAY: Couple Names in the Sky -->
     <div class="wedding-sky-banner" id="weddingSkyBanner" aria-live="polite">
       <span class="wedding-kicker">I have found the one whom my soul loves.</span>
-	  <span class="wedding-kicker1">Song of Solomon 3:4</span>
+      <span class="wedding-kicker1">Song of Solomon 3:4</span>
       <h2 class="wedding-names">Jeswin</h2>
-	  <h4 class="wedding-name1">weds</h4>
-	  <h2 class="wedding-names">Edwina</h2>
+      <h4 class="wedding-name1">weds</h4>
+      <h2 class="wedding-names">Edwina</h2>
       <div class="wedding-divider"><span>✦</span></div>
     </div>
 
-    <!-- SCENE 09 BOTTOM OVERLAY: Doubled Date & Time, Venue & Google Maps Button -->
+    <!-- SCENE 09 BOTTOM OVERLAY: Date & Time, Venue & Google Maps Button -->
     <div class="wedding-bottom-banner" id="weddingBottomBanner" aria-live="polite">
-      <p class="wedding-date">Sunday, 23 January 2028 • 12:05 PM</p>
+      <p class="wedding-date">23 January 2028</p>
+	  <p class="wedding-date">Sunday, 12:05 PM</p>
       <p class="wedding-venue">St. Thomas Kottakkavu Forane Church, North Paravur</p>
       <a
         class="maps-btn"
@@ -66,42 +65,42 @@
       </a>
     </div>
 
-    <!-- Cinematic Subtitle Mode (Scenes 01 - 08 Only; Hidden in Scene 09) -->
+    <!-- Cinematic Subtitle Mode (No Background; Scene 1 at Top Ceiling, Scenes 2-8 at Bottom) -->
     <div class="subtitle-overlay" id="subtitleOverlay" aria-live="polite">
       <div class="subtitle-slide active" data-index="0">
         <span class="subtitle-chapter">Let's Introduce • The Lecturer &amp; The Dancer</span>
-        <h1 class="subtitle-heading">Two Passionate Artists going with thier duties</h1>
+        <h1 class="subtitle-heading">Two Passionate Artists going with their duties</h1>
         <p class="subtitle-text">He Lectures and She with Dancers</p>
       </div>
 
       <div class="subtitle-slide" data-index="1">
-        <span class="subtitle-chapter">Teaming Up •  The Event Coordinators</span>
+        <span class="subtitle-chapter">Teaming Up • The Event Coordinators</span>
         <h2 class="subtitle-heading">Teaming Up for the Host Event</h2>
-        <p class="subtitle-text">Sharing views on thier Art perspectives for the Event.</p>
+        <p class="subtitle-text">Sharing views on their Art perspectives for the Event.</p>
       </div>
 
       <div class="subtitle-slide" data-index="2">
         <span class="subtitle-chapter">Rehearsals • Improvisations</span>
         <h2 class="subtitle-heading">She Choreographs &amp; He Makes Up the Stage</h2>
-        <p class="subtitle-text">They both Coordinates the event in an aesthetical perspective</p>
+        <p class="subtitle-text">They both Coordinate the event in an aesthetical perspective</p>
       </div>
 
       <div class="subtitle-slide" data-index="3">
         <span class="subtitle-chapter">Together • Sharing and Discussing</span>
-        <h2 class="subtitle-heading">Figuring out thier Best</h2>
-        <p class="subtitle-text">Taking an outlook through thier event and Sharing together from third perspective.</p>
+        <h2 class="subtitle-heading">Figuring out their Best</h2>
+        <p class="subtitle-text">Taking an outlook through their event and Sharing together from third perspective.</p>
       </div>
 
       <div class="subtitle-slide" data-index="4">
-        <span class="subtitle-chapter">Want thier Best • Go for any extend</span>
+        <span class="subtitle-chapter">Want their Best • Go for any extend</span>
         <h2 class="subtitle-heading">Shares and discuss with more productive side</h2>
-        <p class="subtitle-text">Sharing Views on thier minds and implementing.</p>
+        <p class="subtitle-text">Sharing Views on their minds and implementing.</p>
       </div>
 
       <div class="subtitle-slide" data-index="5">
-        <span class="subtitle-chapter">Realising the Soulmates • The Light to the thier Life</span>
+        <span class="subtitle-chapter">Realising the Soulmates • The Light to their Life</span>
         <h2 class="subtitle-heading">Together ahead can perform extraordinary tasks</h2>
-        <p class="subtitle-text">They decided to be for ever till thier last breathe</p>
+        <p class="subtitle-text">They decided to be for ever till their last breathe</p>
       </div>
 
       <div class="subtitle-slide" data-index="6">
@@ -113,14 +112,15 @@
       <div class="subtitle-slide" data-index="7">
         <span class="subtitle-chapter">Front of Altar • The Wedding Day</span>
         <h2 class="subtitle-heading">He is going to tie a Knot. And it's Going to be Official.</h2>
-        <p class="subtitle-text">Here with the GOD,the next phase of Life starts</p>
+        <p class="subtitle-text">Here with the GOD, the next phase of Life starts</p>
       </div>
     </div>
 
-    <!-- Scroll Hint -->
+    <!-- Scroll Prompt with Dynamic Progress-Bar Background Color Fill -->
     <div class="scroll-hint" id="scrollHint">
-      <span>Scroll gently to unfold the story</span>
       <div class="mouse-icon"><div class="wheel"></div></div>
+      <span id="scrollHintText">Scroll gently to unfold the story</span>
+      <span class="scroll-arrows" aria-hidden="true">⇣</span>
     </div>
   </div>
 
