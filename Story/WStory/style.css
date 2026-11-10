@@ -1,3 +1,19 @@
+/* ==========================================================================
+   UPLOADED WEDDING PALETTE SERIES THEME (`pallete.jpg`)
+   - Olive Moss Green       : #62694B
+   - Deep Olive Ink         : #1D2116
+   - Warm Cream Ivory       : #F4F1EA
+   - Soft Eucalyptus Sage   : #C2C4B6
+   - Brushed Champagne Gold : #D5AE64
+   ========================================================================== */
+:root {
+  --palette-olive: #62694b;
+  --palette-olive-dark: #1d2116;
+  --palette-ivory: #f4f1ea;
+  --palette-sage: #c2c4b6;
+  --palette-gold: #d5ae64;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,21 +25,21 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
-  background-color: #f4ebe2;
-  color: #2c221e;
+  background-color: var(--palette-ivory);
+  color: var(--palette-olive-dark);
   font-family: 'Georgia', 'Times New Roman', serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Top Progress Bar (Flush Overlay, Zero Layout Space) */
+/* Top Progress Bar */
 .progress-bar-container {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 3px;
-  background: transparent;
+  height: 4px;
+  background: rgba(98, 105, 75, 0.16);
   z-index: 100;
   pointer-events: none;
 }
@@ -31,7 +47,7 @@ body {
 .progress-bar {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, #2d4d7c, #e5989b, #e2b458);
+  background: linear-gradient(90deg, #62694b, #c2c4b6, #d5ae64);
   transition: width 0.05s linear;
 }
 
@@ -48,29 +64,30 @@ body {
   gap: 7px;
   padding: 7px 14px;
   border-radius: 999px;
-  background: rgba(255, 252, 248, 0.78);
+  background: rgba(244, 241, 234, 0.88);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(180, 140, 125, 0.35);
-  color: #4a3831;
+  border: 1px solid rgba(194, 196, 182, 0.85);
+  color: var(--palette-olive-dark);
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
   font-size: 0.76rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(44, 34, 30, 0.1);
+  box-shadow: 0 4px 14px rgba(44, 48, 34, 0.12);
   transition: background 0.25s ease, transform 0.2s ease, border-color 0.25s ease;
 }
 
 .audio-toggle:hover {
-  background: rgba(255, 253, 250, 0.94);
+  background: rgba(255, 255, 255, 0.96);
   transform: translateY(-1px);
 }
 
 .audio-toggle.playing {
-  border-color: rgba(158, 71, 88, 0.55);
-  color: #8c3b4a;
+  border-color: var(--palette-gold);
+  background: var(--palette-olive);
+  color: #ffffff;
 }
 
 .audio-icon {
@@ -83,7 +100,7 @@ body {
   display: none;
 }
 
-/* Fixed Full-Viewport 3D Stage (Zero Top Margin or Padding on Mobile & Desktop) */
+/* Fixed Full-Viewport 3D Stage */
 .stage {
   position: fixed;
   inset: 0;
@@ -118,7 +135,7 @@ body {
   padding: 0;
 }
 
-/* Ceiling Light Match-Cut Warm Bloom Overlay (Scene 6 -> Scene 7) */
+/* Ceiling Light Match-Cut Warm Gold Bloom Overlay (Scene 6 -> Scene 7) */
 .light-transition-bloom {
   position: absolute;
   inset: 0;
@@ -127,14 +144,14 @@ body {
   opacity: 0;
   background: radial-gradient(
     circle at 50% 42%,
-    rgba(255, 251, 235, 0.96) 0%,
-    rgba(255, 238, 195, 0.75) 45%,
-    rgba(248, 235, 220, 0.2) 100%
+    rgba(255, 252, 242, 0.98) 0%,
+    rgba(213, 174, 100, 0.78) 45%,
+    rgba(194, 196, 182, 0.25) 100%
   );
   transition: opacity 0.06s linear;
 }
 
-/* Soft Depth-of-Field Vignette */
+/* Soft Olive-Sage & Ivory Vignette */
 .dof-vignette {
   position: absolute;
   inset: 0;
@@ -142,18 +159,18 @@ body {
   pointer-events: none;
   background: radial-gradient(
     circle at 50% 45%,
-    rgba(255, 250, 245, 0) 58%,
-    rgba(244, 228, 218, 0.3) 88%,
-    rgba(229, 205, 195, 0.65) 100%
+    rgba(244, 241, 234, 0) 58%,
+    rgba(194, 196, 182, 0.34) 88%,
+    rgba(98, 105, 75, 0.52) 100%
   );
 }
 
 /* =========================================================
-   SCENE 09 TOP SKY BANNER (DOUBLED COUPLE NAME FONT SIZE)
+   SCENE 09 TOP SKY BANNER (COUPLE NAMES IN THE SKY)
    ========================================================= */
 .wedding-sky-banner {
   position: absolute;
-  top: 2.5vh;
+  top: 2.2vh;
   left: 50%;
   transform: translate(-50%, -14px);
   width: min(95vw, 920px);
@@ -164,9 +181,9 @@ body {
   border-radius: 22px;
   background: radial-gradient(
     ellipse at center,
-    rgba(255, 253, 250, 0.9) 0%,
-    rgba(248, 242, 236, 0.62) 64%,
-    rgba(248, 242, 236, 0) 100%
+    rgba(244, 241, 234, 0.92) 0%,
+    rgba(194, 196, 182, 0.62) 64%,
+    rgba(194, 196, 182, 0) 100%
   );
   opacity: 0;
   transition: opacity 0.45s ease, transform 0.45s ease;
@@ -182,37 +199,44 @@ body {
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
   font-size: clamp(0.75rem, 1.3vw, 0.95rem);
   font-weight: 700;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: #8c5864;
-  margin-bottom: 4px;
+  color: var(--palette-olive);
+  margin-bottom: 3px;
 }
 
 .wedding-kicker1 {
   display: block;
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-  font-size: clamp(0.5rem, 0.6vw, 0.65rem);
+  font-size: clamp(0.58rem, 0.85vw, 0.72rem);
   font-weight: 700;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: #8c5864;
-  margin-bottom: 4px;
+  color: #7c6638;
+  margin-bottom: 6px;
 }
 
-/* Doubled Couple Name Font Size */
-
-
-
 .wedding-names {
-  font-size: clamp(3.6rem, 8vw, 6.1rem);
-  font-weight: 600;
-  font-style: bold;
-  color: #2b201c;
+  font-size: clamp(3.2rem, 7.2vw, 5.6rem);
+  font-weight: 700;
+  font-style: italic;
+  color: var(--palette-olive-dark);
   letter-spacing: 0.02em;
-  line-height: 1.06;
+  line-height: 1.04;
   text-shadow:
     0 3px 22px rgba(255, 255, 255, 0.98),
-    0 0 35px rgba(255, 253, 250, 0.95);
+    0 0 35px rgba(244, 241, 234, 0.95);
+}
+
+.wedding-name1,
+.wedding-names1 {
+  font-size: clamp(1.1rem, 2.2vw, 1.65rem);
+  font-weight: 600;
+  font-style: italic;
+  color: var(--palette-olive);
+  letter-spacing: 0.14em;
+  margin: 2px 0;
+  text-shadow: 0 2px 12px rgba(255, 255, 255, 0.98);
 }
 
 .wedding-divider {
@@ -222,7 +246,7 @@ body {
   gap: 14px;
   margin: 6px auto 0;
   width: min(70%, 320px);
-  color: #c8963e;
+  color: var(--palette-gold);
   font-size: 1rem;
 }
 
@@ -231,11 +255,11 @@ body {
   content: '';
   flex: 1;
   height: 1.5px;
-  background: linear-gradient(90deg, transparent, #c8963e, transparent);
+  background: linear-gradient(90deg, transparent, var(--palette-gold), transparent);
 }
 
 /* =========================================================
-   SCENE 09 BOTTOM BANNER (DOUBLED DATE & TIME + GOOGLE MAPS BUTTON)
+   SCENE 09 BOTTOM BANNER (DATE, TIME & GOOGLE MAPS BUTTON)
    ========================================================= */
 .wedding-bottom-banner {
   position: absolute;
@@ -250,9 +274,9 @@ body {
   border-radius: 22px;
   background: radial-gradient(
     ellipse at center,
-    rgba(255, 253, 250, 0.96) 0%,
-    rgba(250, 244, 238, 0.88) 74%,
-    rgba(250, 244, 238, 0) 100%
+    rgba(244, 241, 234, 0.96) 0%,
+    rgba(194, 196, 182, 0.88) 74%,
+    rgba(194, 196, 182, 0) 100%
   );
   opacity: 0;
   transition: opacity 0.45s ease, transform 0.45s ease;
@@ -264,14 +288,13 @@ body {
   pointer-events: auto;
 }
 
-/* Doubled Date & Time Font Size */
 .wedding-date {
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
   font-size: clamp(1.75rem, 2.9vw, 2.15rem);
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #2b201c;
+  color: var(--palette-olive-dark);
   line-height: 1.2;
   margin-bottom: 6px;
   text-shadow: 0 2px 14px rgba(255, 255, 255, 0.98);
@@ -280,7 +303,7 @@ body {
 .wedding-venue {
   font-size: clamp(1.05rem, 1.8vw, 1.35rem);
   font-style: italic;
-  color: #5a463f;
+  color: #434934;
   margin-bottom: 14px;
   text-shadow: 0 1px 10px rgba(255, 255, 255, 0.98);
 }
@@ -292,21 +315,21 @@ body {
   gap: 8px;
   padding: 11px 24px;
   border-radius: 999px;
-  background: linear-gradient(135deg, #9e4758 0%, #c87d55 100%);
+  background: linear-gradient(135deg, #62694b 0%, #c59b4e 100%);
   color: #ffffff;
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
   font-size: clamp(0.84rem, 1.35vw, 0.96rem);
   font-weight: 600;
   letter-spacing: 0.04em;
   text-decoration: none;
-  box-shadow: 0 6px 20px rgba(158, 71, 88, 0.34);
-  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 6px 20px rgba(98, 105, 75, 0.38);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .maps-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(158, 71, 88, 0.48);
+  box-shadow: 0 8px 25px rgba(98, 105, 75, 0.52);
 }
 
 .maps-icon {
@@ -317,24 +340,24 @@ body {
 }
 
 /* =========================================================
-   CINEMATIC SUBTITLE OVERLAY (SCENES 01 - 08 ONLY)
+   NO-BACKGROUND SUBTITLE OVERLAY (REQUEST #1 & #2)
+   - Zero background box on all scenes; high-contrast colors + ivory halo
+   - Scene 1 (`data-index="0"`) positioned at Top Ceiling (above stage)
+   - Scenes 2-8 (`data-index="1".."7"`) positioned at Bottom as before
    ========================================================= */
 .subtitle-overlay {
   position: absolute;
-  bottom: 4.2vh;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(92vw, 860px);
+  inset: 0;
+  width: 100%;
+  height: 100%;
   z-index: 10;
   text-align: center;
   pointer-events: none;
-  display: grid;
-  padding: 12px 18px;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(252, 247, 242, 0.9) 0%,
-    rgba(252, 247, 242, 0) 78%
-  );
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   transition: opacity 0.35s ease;
 }
 
@@ -342,91 +365,167 @@ body {
   opacity: 0;
 }
 
+/* Default Position for Scenes 2 - 8: Bottom of Screen */
 .subtitle-slide {
-  grid-area: 1 / 1;
+  position: absolute;
+  bottom: 7.4vh;
+  left: 50%;
+  width: min(92vw, 840px);
+  padding: 0 12px;
   opacity: 0;
-  transform: translateY(10px);
+  transform: translate(-50%, 10px);
   transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 .subtitle-slide.active {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate(-50%, 0);
+}
+
+/* Scene 1 Only (`data-index="0"`): Positioned at Top in Ceiling Above Stage */
+.subtitle-slide[data-index="0"] {
+  top: 4.2vh;
+  bottom: auto;
+  transform: translate(-50%, -10px);
+}
+
+.subtitle-slide[data-index="0"].active {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 .subtitle-chapter {
   display: block;
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-  font-size: clamp(0.68rem, 1.15vw, 0.8rem);
-  font-weight: 700;
+  font-size: clamp(0.74rem, 1.25vw, 0.88rem);
+  font-weight: 800;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #a45a68;
-  margin-bottom: 4px;
+  color: #6b4e1b;
+  margin-bottom: 5px;
+  text-shadow:
+    0 1px 2px #ffffff,
+    0 0 10px rgba(244, 241, 234, 0.98),
+    0 0 20px rgba(255, 255, 255, 0.95);
 }
 
 .subtitle-heading {
-  font-size: clamp(1.15rem, 2.3vw, 1.85rem);
-  font-weight: 600;
+  font-size: clamp(1.3rem, 2.5vw, 2.05rem);
+  font-weight: 700;
   font-style: italic;
-  color: #2b201c;
+  color: #1a1e13;
   line-height: 1.22;
   margin-bottom: 6px;
-  text-shadow: 0 2px 14px rgba(255, 253, 250, 0.98);
+  text-shadow:
+    0 1px 3px #ffffff,
+    0 0 14px rgba(244, 241, 234, 1),
+    0 0 28px rgba(255, 255, 255, 0.98);
 }
 
 .subtitle-text {
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-  font-size: clamp(0.85rem, 1.35vw, 1.04rem);
-  font-weight: 450;
+  font-size: clamp(0.94rem, 1.48vw, 1.12rem);
+  font-weight: 600;
   line-height: 1.5;
-  color: #4a3c37;
-  max-width: 690px;
+  color: #2b3020;
+  max-width: 680px;
   margin: 0 auto;
-  text-shadow: 0 1px 10px rgba(255, 253, 250, 0.98);
+  text-shadow:
+    0 1px 2px #ffffff,
+    0 0 12px rgba(244, 241, 234, 1),
+    0 0 24px rgba(255, 255, 255, 0.98);
 }
 
-/* Scroll Hint */
+/* =========================================================
+   PROGRESS-BAR BACKGROUND COLOR FILL SCROLL DIALOG (REQUEST #3)
+   Fills left-to-right & shifts color as user scrolls through the story
+   ========================================================= */
 .scroll-hint {
+  --scroll-fill: 0%;
   position: absolute;
-  bottom: 1vh;
+  bottom: 1.4vh;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 12;
-  display: flex;
+  z-index: 14;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  padding: 8px 22px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    #62694b 0%,
+    #b89246 calc(var(--scroll-fill) * 0.65),
+    #d5ae64 var(--scroll-fill),
+    rgba(35, 39, 27, 0.78) var(--scroll-fill),
+    rgba(35, 39, 27, 0.78) 100%
+  );
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 6px 22px rgba(44, 48, 34, 0.45),
+    0 0 16px rgba(213, 174, 100, 0.55);
   font-family: system-ui, -apple-system, sans-serif;
-  font-size: 0.7rem;
+  font-size: clamp(0.68rem, 1.15vw, 0.78rem);
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #7c6860;
-  transition: opacity 0.4s ease;
+  color: #ffffff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: pulseScrollBadge 2.2s ease-in-out infinite;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.scroll-hint.hidden {
+  opacity: 0;
+  transform: translate(-50%, 12px);
+}
+
+@keyframes pulseScrollBadge {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-3px) scale(1.02);
+  }
 }
 
 .mouse-icon {
-  width: 16px;
-  height: 25px;
-  border: 1.5px solid #7c6860;
-  border-radius: 9px;
+  width: 15px;
+  height: 23px;
+  border: 2px solid #ffffff;
+  border-radius: 8px;
   position: relative;
+  flex-shrink: 0;
 }
 
 .wheel {
   width: 3px;
   height: 5px;
-  background: #a45a68;
+  background: #f4f1ea;
   border-radius: 2px;
   position: absolute;
   top: 4px;
   left: 50%;
   transform: translateX(-50%);
-  animation: scrollWheel 1.6s infinite;
+  animation: scrollWheel 1.4s infinite;
+}
+
+.scroll-arrows {
+  font-size: 0.95rem;
+  line-height: 1;
+  animation: bounceArrow 1.4s infinite;
 }
 
 @keyframes scrollWheel {
   0% { opacity: 1; transform: translate(-50%, 0); }
   100% { opacity: 0; transform: translate(-50%, 8px); }
+}
+
+@keyframes bounceArrow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
 }
 
 /* Slow, Deliberate Scroll Track (160vh per step = 1440vh total) */
@@ -462,16 +561,17 @@ body {
   }
 
   .wedding-sky-banner {
-    top: 1.8vh;
+    top: 1.5vh;
     padding: 8px 12px;
   }
 
   .wedding-names {
-    font-size: clamp(2.65rem, 10.5vw, 4.2rem);
+    font-size: clamp(2.35rem, 9.2vw, 3.8rem);
   }
-  
-   .wedding-names1 {
-    font-size: clamp(.65rem, 3.5vw, 1.2rem);
+
+  .wedding-name1,
+  .wedding-names1 {
+    font-size: clamp(0.85rem, 3.2vw, 1.2rem);
   }
 
   .wedding-bottom-banner {
@@ -484,9 +584,19 @@ body {
     font-size: clamp(1.25rem, 4.8vw, 1.75rem);
   }
 
-  .subtitle-overlay {
-    bottom: 3.5vh;
-    width: 96vw;
-    padding: 8px 10px;
+  .subtitle-slide {
+    bottom: 6.8vh;
+    width: 95vw;
+  }
+
+  .subtitle-slide[data-index="0"] {
+    top: 6.2vh;
+    bottom: auto;
+  }
+
+  .scroll-hint {
+    bottom: 1.1vh;
+    padding: 6px 16px;
+    font-size: 0.64rem;
   }
 }

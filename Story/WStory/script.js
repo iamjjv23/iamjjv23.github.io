@@ -1,10 +1,8 @@
 // ============================================================================
-// PASTEL 2.5D MULTI-ANGLE STORY + FURNISHED ST. THOMAS KOTTAKKAVU ALTAR
-// 1. Removed left wooden lectern, Malayalam sign, and right Risen Christ statue
-// 2. Refinished Altar in a cohesive furnished teakwood, ivory & burnished gold texture
-// 3. Bride's gown is pure white with pearl beadwork and a floral bouquet in hand
-// 4. Both his and her hair (and beard/brows) are natural jet black
-// 5. Background music loads from `music/music.mp3` with Web Audio synth fallback
+// OLIVE-SAGE, IVORY & GOLD WEDDING PALETTE STORY (`pallete.jpg`)
+// 1. Removed background box from all scene descriptions; high-contrast readable text
+// 2. Scene 1 description positioned at Top Ceiling (above stage); Scenes 2-8 at Bottom
+// 3. Scroll dialog box uses a live progress-bar background color fill (no scene numbers)
 // ============================================================================
 const lerp = (a, b, t) => a + (b - a) * t;
 const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
@@ -22,6 +20,7 @@ const normalizeAngle = (a) => {
 const container = document.getElementById('webglContainer');
 const progressBar = document.getElementById('progressBar');
 const scrollHint = document.getElementById('scrollHint');
+const scrollHintText = document.getElementById('scrollHintText');
 const lightBloom = document.getElementById('lightBloom');
 const weddingSkyBanner = document.getElementById('weddingSkyBanner');
 const weddingBottomBanner = document.getElementById('weddingBottomBanner');
@@ -135,22 +134,24 @@ audioToggleBtn.addEventListener('click', () => {
   }
 });
 
-// 1. 3D SCENE, CAMERA & RENDERER
+// ============================================================================
+// 1. 3D SCENE, CAMERA & RENDERER (OLIVE-SAGE, IVORY & GOLD PALETTE — `pallete.jpg`)
+// ============================================================================
 const scene = new THREE.Scene();
 
 const bgPastelColors = [
-  new THREE.Color(0xeef4f8), // Scene 1: Classroom Pan + Deeper Truss/LED Stage
-  new THREE.Color(0xe6f4ea), // Scene 2: Verandah + Parallax Garden
-  new THREE.Color(0xf6e8ee), // Scene 3: Scroll-Driven Kathak Dance -> Walks to Him
-  new THREE.Color(0xf2e4ec), // Scene 4: Watching Troupe Side by Side
-  new THREE.Color(0xebdde8), // Scene 5: Wide Backstage View (Backs of Dancers)
-  new THREE.Color(0xfff4d6), // Scene 6: Tilt Up into Auditorium Ceiling Light
-  new THREE.Color(0xf8efe8), // Scene 7: Tilt Down into Long Stone-Pillar Church Nave
-  new THREE.Color(0xfff3e6), // Scene 8: 360° Orbit Before the Furnished Altar
-  new THREE.Color(0xdce6f0)  // Scene 9: Track Out Through Long Nave -> Drone Finale
+  new THREE.Color(0xf4f1ea), // Scene 1: Warm Cream Ivory
+  new THREE.Color(0xeaece2), // Scene 2: Soft Eucalyptus Sage Verandah
+  new THREE.Color(0xeef0e6), // Scene 3: Warm Sage & Gold Stage Glow
+  new THREE.Color(0xe5e7dc), // Scene 4: Soft Sage Auditorium
+  new THREE.Color(0xdde0d2), // Scene 5: Wide Backstage Olive-Sage Mist
+  new THREE.Color(0xfbf6e8), // Scene 6: Warm Champagne Gold Chandelier Bloom
+  new THREE.Color(0xf4f1ea), // Scene 7: Alabaster Ivory Church Nave
+  new THREE.Color(0xf6f0e2), // Scene 8: 360° Sanctuary Golden Glow
+  new THREE.Color(0xe8ece2)  // Scene 9: Soft Sage-Ivory Daylight Sky for Drone Finale
 ];
 scene.background = bgPastelColors[0].clone();
-scene.fog = new THREE.Fog(0xeef4f8, 36, 92);
+scene.fog = new THREE.Fog(0xf4f1ea, 36, 92);
 
 const camera = new THREE.PerspectiveCamera(44, window.innerWidth / window.innerHeight, 0.1, 180);
 const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
@@ -161,58 +162,57 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 container.appendChild(renderer.domElement);
 
 // 2. 3D LIGHTING
-const hemiLight = new THREE.HemisphereLight(0xffffff, 0xcab8a8, 0.96);
+const hemiLight = new THREE.HemisphereLight(0xfffdf8, 0xc2c4b6, 0.96);
 scene.add(hemiLight);
 
-const dirLight = new THREE.DirectionalLight(0xfff6e5, 0.9);
+const dirLight = new THREE.DirectionalLight(0xfff8eb, 0.9);
 dirLight.position.set(7, 18, 12);
 dirLight.castShadow = true;
 dirLight.shadow.mapSize.width = 1024;
 dirLight.shadow.mapSize.height = 1024;
 scene.add(dirLight);
 
-const stageSpotLight = new THREE.SpotLight(0xffe7a8, 1.4, 42, Math.PI / 3, 0.5, 1.2);
+const stageSpotLight = new THREE.SpotLight(0xffeab5, 1.4, 42, Math.PI / 3, 0.5, 1.2);
 stageSpotLight.position.set(0, 10.2, -7.2);
 scene.add(stageSpotLight);
 
-// 3. 3D ARCHITECTURAL & DECORATION MATERIALS
+// 3. 3D ARCHITECTURAL & DECORATION MATERIALS (`pallete.jpg` Olive-Sage, Ivory & Gold)
 const envMats = {
-  floor: new THREE.MeshStandardMaterial({ color: 0xe2d4c6, roughness: 0.75 }),
-  ceiling: new THREE.MeshStandardMaterial({ color: 0xe5d8cb, roughness: 0.7, side: THREE.DoubleSide }),
-  naveSkyVault: new THREE.MeshStandardMaterial({ color: 0xdce8ee, roughness: 0.65, side: THREE.DoubleSide }),
-  ceilingBeam: new THREE.MeshStandardMaterial({ color: 0xd2c0ae, roughness: 0.6 }),
-  woodStage: new THREE.MeshStandardMaterial({ color: 0xc99e7c, roughness: 0.45 }),
-  woodDesk: new THREE.MeshStandardMaterial({ color: 0xb88662, roughness: 0.55 }),
+  floor: new THREE.MeshStandardMaterial({ color: 0xe6e2d6, roughness: 0.72 }),
+  ceiling: new THREE.MeshStandardMaterial({ color: 0xf4f1ea, roughness: 0.68, side: THREE.DoubleSide }),
+  naveSkyVault: new THREE.MeshStandardMaterial({ color: 0xe4e8df, roughness: 0.65, side: THREE.DoubleSide }),
+  ceilingBeam: new THREE.MeshStandardMaterial({ color: 0xc2c4b6, roughness: 0.6 }),
+  woodStage: new THREE.MeshStandardMaterial({ color: 0xc8b496, roughness: 0.45 }),
+  woodDesk: new THREE.MeshStandardMaterial({ color: 0x8f8872, roughness: 0.52 }),
   woodPew: new THREE.MeshStandardMaterial({ color: 0x6e4228, roughness: 0.44 }),
   furnishedTeak: new THREE.MeshStandardMaterial({ color: 0x54301a, roughness: 0.38, metalness: 0.08 }),
-  chalkboard: new THREE.MeshStandardMaterial({ color: 0x354f44, roughness: 0.6 }),
-  trussMetal: new THREE.MeshStandardMaterial({ color: 0x2c3038, roughness: 0.35, metalness: 0.75 }),
-  speakerBox: new THREE.MeshStandardMaterial({ color: 0x1e2126, roughness: 0.45, metalness: 0.4 }),
-  curtainVelvet: new THREE.MeshStandardMaterial({ color: 0x9e4758, roughness: 0.65, side: THREE.DoubleSide }),
-  marble: new THREE.MeshStandardMaterial({ color: 0xfbf7f2, roughness: 0.4 }),
+  trussMetal: new THREE.MeshStandardMaterial({ color: 0x3b3f32, roughness: 0.32, metalness: 0.72 }),
+  speakerBox: new THREE.MeshStandardMaterial({ color: 0x24261e, roughness: 0.45, metalness: 0.4 }),
+  curtainVelvet: new THREE.MeshStandardMaterial({ color: 0x62694b, roughness: 0.62, side: THREE.DoubleSide }),
+  marble: new THREE.MeshStandardMaterial({ color: 0xf7f5f0, roughness: 0.4 }),
   stonePillarGranite: new THREE.MeshStandardMaterial({ color: 0x5c5349, roughness: 0.68, metalness: 0.08 }),
   pillarBaseDark: new THREE.MeshStandardMaterial({ color: 0x3d362f, roughness: 0.7 }),
   sanctuaryRedCarpet: new THREE.MeshStandardMaterial({ color: 0xb81d22, roughness: 0.55 }),
   sanctuaryStepDarkRed: new THREE.MeshStandardMaterial({ color: 0x8f1519, roughness: 0.6 }),
   communionRailDark: new THREE.MeshStandardMaterial({ color: 0x281c17, roughness: 0.4, metalness: 0.4 }),
   churchWhite: new THREE.MeshStandardMaterial({ color: 0xf9fbfd, roughness: 0.42, side: THREE.DoubleSide }),
-  churchWall: new THREE.MeshStandardMaterial({ color: 0xf4efe6, roughness: 0.55, side: THREE.DoubleSide }),
-  churchStone: new THREE.MeshStandardMaterial({ color: 0xe4d5c5, roughness: 0.55 }),
+  churchWall: new THREE.MeshStandardMaterial({ color: 0xf4f1ea, roughness: 0.55, side: THREE.DoubleSide }),
+  churchStone: new THREE.MeshStandardMaterial({ color: 0xd8d6cb, roughness: 0.55 }),
   blackGranite: new THREE.MeshStandardMaterial({ color: 0x1e2226, roughness: 0.32, metalness: 0.22 }),
   terracottaTile: new THREE.MeshStandardMaterial({ color: 0xa63a2f, roughness: 0.52 }),
   colonialRoof: new THREE.MeshStandardMaterial({ color: 0x54382c, roughness: 0.6 }),
   gateBrick: new THREE.MeshStandardMaterial({ color: 0x969ba1, roughness: 0.65 }),
   redStep: new THREE.MeshStandardMaterial({ color: 0x8c3b35, roughness: 0.6 }),
   carpetWhite: new THREE.MeshStandardMaterial({ color: 0xfffdf9, roughness: 0.5 }),
-  gold: new THREE.MeshStandardMaterial({ color: 0xd9a738, roughness: 0.28, metalness: 0.72 }),
-  silver: new THREE.MeshStandardMaterial({ color: 0xd4dae2, roughness: 0.25, metalness: 0.8 }),
-  screenGlow: new THREE.MeshBasicMaterial({ color: 0x7ce0f0, side: THREE.DoubleSide }),
-  lampGlow: new THREE.MeshBasicMaterial({ color: 0xfff5cc }),
-  haloGlow: new THREE.MeshBasicMaterial({ color: 0xffefb3, transparent: true, opacity: 0.55, side: THREE.DoubleSide }),
-  balloonPearl: new THREE.MeshStandardMaterial({ color: 0xfffdf9, roughness: 0.2, metalness: 0.1 }),
-  balloonBlush: new THREE.MeshStandardMaterial({ color: 0xf4acb7, roughness: 0.22, metalness: 0.08 }),
-  balloonGold: new THREE.MeshStandardMaterial({ color: 0xf6bd60, roughness: 0.22, metalness: 0.35 }),
-  balloonLavender: new THREE.MeshStandardMaterial({ color: 0xcdb4db, roughness: 0.22, metalness: 0.08 })
+  gold: new THREE.MeshStandardMaterial({ color: 0xd5ae64, roughness: 0.26, metalness: 0.76 }),
+  silver: new THREE.MeshStandardMaterial({ color: 0xc2c4b6, roughness: 0.3, metalness: 0.65 }),
+  screenGlow: new THREE.MeshBasicMaterial({ color: 0xe6d6a8, side: THREE.DoubleSide }),
+  lampGlow: new THREE.MeshBasicMaterial({ color: 0xfff8dc }),
+  haloGlow: new THREE.MeshBasicMaterial({ color: 0xfaecc4, transparent: true, opacity: 0.58, side: THREE.DoubleSide }),
+  balloonPearl: new THREE.MeshStandardMaterial({ color: 0xf4f1ea, roughness: 0.2, metalness: 0.1 }),
+  balloonBlush: new THREE.MeshStandardMaterial({ color: 0xc2c4b6, roughness: 0.22, metalness: 0.08 }),
+  balloonGold: new THREE.MeshStandardMaterial({ color: 0xd5ae64, roughness: 0.22, metalness: 0.48 }),
+  balloonLavender: new THREE.MeshStandardMaterial({ color: 0x7b8262, roughness: 0.24, metalness: 0.1 })
 };
 
 // Helper: Draw SVG Path2D without any white sticker border
@@ -231,6 +231,74 @@ function drawSVGPath(ctx, d, fillStyle, strokeStyle = null, lineWidth = 2) {
   }
 }
 
+// Helper: Draw Expressive Female Almond Eyes, Eyelashes, Arched Brows, Bindi & Smile
+function drawExpressiveFemaleFace(ctx, cx, cy, turnX = 0, scale = 1, bindiColor = '#8c2d2d', smileOpen = true) {
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.scale(scale, scale);
+
+  const fx = turnX * 0.38;
+
+  ctx.fillStyle = 'rgba(229, 125, 115, 0.32)';
+  ctx.beginPath();
+  ctx.ellipse(-15 + fx, 5, 7.5, 4.5, 0, 0, Math.PI * 2);
+  ctx.ellipse(15 + fx, 5, 7.5, 4.5, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  drawSVGPath(ctx, `M${-21 + fx},-11 Q${-12 + fx},-17 ${-4 + fx},-11`, null, '#141418', 2.8);
+  drawSVGPath(ctx, `M${4 + fx},-11 Q${12 + fx},-17 ${21 + fx},-11`, null, '#141418', 2.8);
+
+  ctx.fillStyle = bindiColor;
+  ctx.beginPath();
+  ctx.arc(fx, -13, 2.6, 0, Math.PI * 2);
+  ctx.fill();
+
+  [-12 + fx, 12 + fx].forEach((ex, idx) => {
+    const dir = idx === 0 ? -1 : 1;
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.moveTo(ex - 7.5, -4);
+    ctx.quadraticCurveTo(ex, -9.5, ex + 7.5, -4);
+    ctx.quadraticCurveTo(ex, 0.5, ex - 7.5, -4);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = '#241612';
+    ctx.beginPath();
+    ctx.arc(ex + turnX * 0.06, -4.2, 3.8, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(ex + 1.3, -5.5, 1.3, 0, Math.PI * 2);
+    ctx.fill();
+
+    drawSVGPath(
+      ctx,
+      `M${ex - 8},-3.8 Q${ex},-9.8 ${ex + 8},-3.8 L${ex + dir * 10},-5.8`,
+      null,
+      '#141418',
+      2.2
+    );
+  });
+
+  drawSVGPath(ctx, `M${fx},-3 L${fx - 1.5},4.5 Q${fx},6.5 ${fx + 2.5},4.5`, null, '#c98863', 2.0);
+
+  if (smileOpen) {
+    drawSVGPath(
+      ctx,
+      `M${-9 + fx},11 Q${fx},19 ${9 + fx},11 Q${fx},13.5 ${-9 + fx},11 Z`,
+      '#ffffff',
+      '#b83b48',
+      2.4
+    );
+  } else {
+    drawSVGPath(ctx, `M${-8 + fx},11 Q${fx},17 ${8 + fx},11`, null, '#b83b48', 2.8);
+  }
+
+  ctx.restore();
+}
+
 // Helper: Draw a 2-Segment Articulated Limb (Shoulder -> Elbow -> Wrist/Hand + Optional DSLR)
 function drawArticulatedArm(
   ctx,
@@ -244,7 +312,8 @@ function drawArticulatedArm(
   skinColor,
   hasBangles = false,
   holdCamera = false,
-  hasPearlCuff = false
+  hasPearlCuff = false,
+  hasWhiteShirtCuff = false
 ) {
   const ex = sx + Math.sin(shoulderAng) * upperLen;
   const ey = sy + Math.cos(shoulderAng) * upperLen;
@@ -256,21 +325,30 @@ function drawArticulatedArm(
   ctx.lineJoin = 'round';
 
   ctx.strokeStyle = sleeveColor;
-  ctx.lineWidth = 22;
+  ctx.lineWidth = 24;
   ctx.beginPath();
   ctx.moveTo(sx, sy);
   ctx.lineTo(ex, ey);
   ctx.stroke();
 
-  ctx.strokeStyle = skinColor;
-  ctx.lineWidth = 18;
+  ctx.strokeStyle = hasWhiteShirtCuff ? sleeveColor : skinColor;
+  ctx.lineWidth = hasWhiteShirtCuff ? 20 : 18;
   ctx.beginPath();
   ctx.moveTo(ex, ey);
   ctx.lineTo(wx, wy);
   ctx.stroke();
 
+  if (hasWhiteShirtCuff) {
+    ctx.strokeStyle = '#d8e8f2';
+    ctx.lineWidth = 17;
+    ctx.beginPath();
+    ctx.moveTo(wx - Math.sin(totalAng) * 7, wy - Math.cos(totalAng) * 7);
+    ctx.lineTo(wx, wy);
+    ctx.stroke();
+  }
+
   if (hasBangles) {
-    ctx.strokeStyle = hasPearlCuff ? '#f8fafc' : '#d4942a';
+    ctx.strokeStyle = hasPearlCuff ? '#f8fafc' : '#d5ae64';
     ctx.lineWidth = 20;
     ctx.beginPath();
     ctx.moveTo(wx - Math.sin(totalAng) * 10, wy - Math.cos(totalAng) * 10);
@@ -284,20 +362,20 @@ function drawArticulatedArm(
 
   ctx.fillStyle = skinColor;
   ctx.beginPath();
-  ctx.ellipse(0, 6, 9, 13, 0, 0, Math.PI * 2);
+  ctx.ellipse(0, 6, 9.5, 13, 0, 0, Math.PI * 2);
   ctx.fill();
 
   if (holdCamera) {
     ctx.save();
     ctx.rotate(totalAng * 0.75);
-    drawSVGPath(ctx, 'M-12,2 Q-24,24 -6,34', null, '#b54848', 3);
+    drawSVGPath(ctx, 'M-12,2 Q-24,24 -6,34', null, '#62694b', 3);
     ctx.fillStyle = '#1b1e24';
     ctx.beginPath();
     ctx.roundRect(10, -14, 34, 22, 4);
     ctx.fill();
-    ctx.fillStyle = '#e5b85b';
+    ctx.fillStyle = '#d5ae64';
     ctx.fillRect(34, -14, 4, 22);
-    ctx.fillStyle = '#7ce0f0';
+    ctx.fillStyle = '#e6d6a8';
     ctx.fillRect(41, -11, 3, 16);
     ctx.fillStyle = '#282c34';
     ctx.beginPath();
@@ -310,7 +388,7 @@ function drawArticulatedArm(
     ctx.beginPath();
     ctx.arc(8, -12, 3, 0, Math.PI * 2);
     ctx.fill();
-    ctx.strokeStyle = '#e5b85b';
+    ctx.strokeStyle = '#d5ae64';
     ctx.lineWidth = 2.5;
     ctx.beginPath();
     ctx.arc(-2, -4, 11, 0, Math.PI * 2);
@@ -323,7 +401,7 @@ function drawArticulatedArm(
 }
 
 // ============================================================================
-// 4. MULTI-ANGLE ARTICULATED PROFESSOR / MAN (JET-BLACK HAIR, BEARD & BROWS)
+// 4. MALE CHARACTER SVG (`19549239.webp` Reference)
 // ============================================================================
 const profCanvas = document.createElement('canvas');
 profCanvas.width = 400;
@@ -355,95 +433,143 @@ function renderManMultiAngle({
   const lLegY = legSwing * 0.5;
   const rLegY = -legSwing * 0.5;
 
-  drawSVGPath(ctx, `M${152 + legSwing * 0.2},345 L${148 - legSwing * 0.3},${528 + lLegY} L${184 - legSwing * 0.3},${528 + lLegY} L194,345 Z`, '#23314c');
-  drawSVGPath(ctx, `M${132 - legSwing * 0.3},${524 + lLegY} C120,${524 + lLegY} 118,${544 + lLegY} 132,${546 + lLegY} L${188 - legSwing * 0.3},${546 + lLegY} L${188 - legSwing * 0.3},${524 + lLegY} Z`, '#2b1d16');
+  drawSVGPath(ctx, `M${150 + legSwing * 0.2},342 L${148 - legSwing * 0.3},${524 + lLegY} L${184 - legSwing * 0.3},${524 + lLegY} L196,342 Z`, '#522120');
+  drawSVGPath(ctx, `M${130 - legSwing * 0.3},${520 + lLegY} C118,${520 + lLegY} 114,${544 + lLegY} 128,${546 + lLegY} L${186 - legSwing * 0.3},${546 + lLegY} L${186 - legSwing * 0.3},${520 + lLegY} Z`, '#5e2c24');
 
-  drawSVGPath(ctx, `M206,345 L${216 + legSwing * 0.3},${528 + rLegY} L${252 + legSwing * 0.3},${528 + rLegY} L${248 - legSwing * 0.2},345 Z`, '#1d2940');
-  drawSVGPath(ctx, `M${212 + legSwing * 0.3},${524 + rLegY} L${268 + legSwing * 0.3},${524 + rLegY} C282,${524 + rLegY} 280,${544 + rLegY} 268,${546 + rLegY} L${212 + legSwing * 0.3},${546 + rLegY} Z`, '#2b1d16');
+  drawSVGPath(ctx, `M204,342 L${216 + legSwing * 0.3},${524 + rLegY} L${252 + legSwing * 0.3},${524 + rLegY} L${250 - legSwing * 0.2},342 Z`, '#451a19');
+  drawSVGPath(ctx, `M${214 + legSwing * 0.3},${520 + rLegY} L${272 + legSwing * 0.3},${520 + rLegY} C286,${520 + rLegY} 282,${544 + rLegY} 270,${546 + rLegY} L${214 + legSwing * 0.3},${546 + rLegY} Z`, '#5e2c24');
 
   const drawArms = () => {
-    drawArticulatedArm(ctx, 144 + turnX * 0.3, 210, 62, 58, leftShoulder, leftElbow, '#7fa6c9', '#f5c69c', false, false);
-    drawArticulatedArm(ctx, 256 + turnX * 0.3, 210, 62, 58, rightShoulder, rightElbow, '#7fa6c9', '#f5c69c', false, holdCamera && !isBackView);
+    drawArticulatedArm(ctx, 140 + turnX * 0.3, 210, 62, 58, leftShoulder, leftElbow, '#1d2d44', '#f3b69b', false, false, false, true);
+    drawArticulatedArm(ctx, 260 + turnX * 0.3, 210, 62, 58, rightShoulder, rightElbow, '#1d2d44', '#f3b69b', false, holdCamera && !isBackView, false, true);
   };
 
   if (isBackView) drawArms();
 
   if (!isBackView) {
-    drawSVGPath(ctx, `M${164 + turnX * 0.4},192 L${236 + turnX * 0.4},192 L${220 + turnX * 0.5},278 L${180 + turnX * 0.5},278 Z`, '#ffffff');
-    drawSVGPath(ctx, `M${192 + turnX * 0.5},208 L${208 + turnX * 0.5},208 L${214 + turnX * 0.6},270 L${200 + turnX * 0.6},290 L${186 + turnX * 0.6},270 Z`, '#d63838');
-    drawSVGPath(ctx, 'M140,200 L172,200 L200,275 L228,200 L260,200 L256,352 L144,352 Z', '#2d4d7c');
-    ctx.fillStyle = '#18202c';
-    ctx.fillRect(143, 344, 114, 12);
-    ctx.strokeStyle = '#cfd8dc';
-    ctx.lineWidth = 3;
-    ctx.strokeRect(190 + turnX * 0.4, 343, 20, 14);
+    drawSVGPath(ctx, 'M158,192 L242,192 L238,346 L162,346 Z', '#d8e8f2');
+    drawSVGPath(ctx, `M${200 + turnX * 0.4},210 L${200 + turnX * 0.4},344`, null, '#bfd4e3', 2);
+    drawSVGPath(
+      ctx,
+      `M174,186 L${194 + turnX * 0.35},216 L168,212 Z M226,186 L${206 + turnX * 0.35},216 L232,212 Z`,
+      '#eef6fa',
+      '#bfd4e3',
+      1.5
+    );
+
+    ctx.fillStyle = '#3d1e18';
+    ctx.fillRect(156, 338, 88, 12);
+    ctx.strokeStyle = '#cbd5e1';
+    ctx.lineWidth = 2.8;
+    ctx.strokeRect(191 + turnX * 0.35, 337, 18, 14);
+
+    drawSVGPath(
+      ctx,
+      `M134,198 L174,188 L${184 + turnX * 0.35},354 L140,354 Z`,
+      '#1d2d44'
+    );
+    drawSVGPath(
+      ctx,
+      `M266,198 L226,188 L${216 + turnX * 0.35},354 L260,354 Z`,
+      '#1d2d44'
+    );
+
+    drawSVGPath(
+      ctx,
+      `M174,188 L154,230 L165,234 L158,246 L${182 + turnX * 0.35},292 L${182 + turnX * 0.35},212 Z`,
+      '#142032',
+      '#2c405e',
+      1.5
+    );
+    drawSVGPath(
+      ctx,
+      `M226,188 L246,230 L235,234 L242,246 L${218 + turnX * 0.35},292 L${218 + turnX * 0.35},212 Z`,
+      '#142032',
+      '#2c405e',
+      1.5
+    );
+    ctx.fillStyle = '#2b3e59';
+    ctx.fillRect(224, 244, 24, 6);
+    ctx.fillRect(144, 306, 30, 11);
+    ctx.fillRect(226, 306, 30, 11);
   } else {
-    drawSVGPath(ctx, 'M166,188 L234,188 L238,205 L162,205 Z', '#ffffff');
-    drawSVGPath(ctx, 'M140,200 L260,200 L256,352 L144,352 Z', '#26426b');
-    drawSVGPath(ctx, 'M165,315 L235,315 L235,326 L165,326 Z', '#1b3152');
-    ctx.fillStyle = '#18202c';
-    ctx.fillRect(143, 344, 114, 12);
+    drawSVGPath(ctx, 'M168,186 L232,186 L236,200 L164,200 Z', '#d8e8f2');
+    drawSVGPath(ctx, 'M134,198 L266,198 L258,354 L142,354 Z', '#1d2d44');
+    drawSVGPath(ctx, 'M200,200 L200,354', null, '#142032', 2.5);
   }
 
   if (!isBackView) drawArms();
 
-  ctx.fillStyle = '#e8b48a';
-  ctx.fillRect(182 + turnX * 0.3, 170, 36, 30);
+  ctx.fillStyle = '#e09d80';
+  ctx.fillRect(184 + turnX * 0.3, 168, 32, 28);
+  drawSVGPath(ctx, `M182,186 L${200 + turnX * 0.35},212 L218,186 Z`, '#f3b69b');
 
-  ctx.fillStyle = '#f5c69c';
-  ctx.beginPath();
-  ctx.arc(124 + turnX * 0.4, 130, 15, 0, Math.PI * 2);
-  ctx.arc(276 + turnX * 0.4, 130, 15, 0, Math.PI * 2);
-  ctx.fill();
+  [148 + turnX * 0.4, 252 + turnX * 0.4].forEach((ex) => {
+    ctx.fillStyle = '#f3b69b';
+    ctx.beginPath();
+    ctx.ellipse(ex, 126, 10, 14, 0, 0, Math.PI * 2);
+    ctx.fill();
+  });
 
   drawSVGPath(
     ctx,
-    `M${132 + turnX * 0.4},104 C${132 + turnX * 0.4},60 155,50 200,50 C245,50 ${268 + turnX * 0.4},60 ${268 + turnX * 0.4},104 L${268 + turnX * 0.4},136 C${268 + turnX * 0.4},174 240,188 200,188 C160,188 ${132 + turnX * 0.4},174 ${132 + turnX * 0.4},136 Z`,
-    '#f5c69c'
+    `M${152 + turnX * 0.4},88 C${152 + turnX * 0.4},60 170,52 200,52 C230,52 ${248 + turnX * 0.4},60 ${248 + turnX * 0.4},88 L${248 + turnX * 0.4},142 C${248 + turnX * 0.4},172 228,186 200,186 C172,186 ${152 + turnX * 0.4},172 ${152 + turnX * 0.4},142 Z`,
+    '#f3b69b'
   );
 
   if (!isBackView) {
-    const fx = turnX * 0.85;
-    // Jet-Black Beard & Mustache (Request #4)
-    drawSVGPath(
-      ctx,
-      `M${132 + turnX * 0.4},124 C${132 + turnX * 0.4},176 164,191 ${200 + fx * 0.4},191 C236,191 ${268 + turnX * 0.4},176 ${268 + turnX * 0.4},124 L${256 + fx * 0.5},124 C252,154 234,166 ${200 + fx * 0.6},166 C166,166 148,154 ${144 + fx * 0.5},124 Z`,
-      '#18181d'
-    );
-    drawSVGPath(ctx, `M${168 + fx},140 Q${200 + fx},129 ${232 + fx},140 Q${228 + fx},152 ${200 + fx},148 Q${172 + fx},152 ${168 + fx},140 Z`, '#101014');
-    drawSVGPath(ctx, `M${178 + fx},145 Q${200 + fx},166 ${222 + fx},145 Z`, '#ffffff', '#c04848', 3.2);
+    const fx = turnX * 0.65;
 
-    [168 + fx, 232 + fx].forEach((ex) => {
+    ctx.fillStyle = 'rgba(228, 128, 108, 0.38)';
+    ctx.beginPath();
+    ctx.arc(168 + fx, 128, 9.5, 0, Math.PI * 2);
+    ctx.arc(232 + fx, 128, 9.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    [178 + fx, 222 + fx].forEach((ex) => {
+      ctx.fillStyle = '#18181d';
+      ctx.beginPath();
+      ctx.arc(ex, 112, 4.8, 0, Math.PI * 2);
+      ctx.fill();
       ctx.fillStyle = '#ffffff';
       ctx.beginPath();
-      ctx.arc(ex, 114, 13, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = '#121216';
-      ctx.beginPath();
-      ctx.arc(ex + turnX * 0.12, 114, 8.5, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = '#ffffff';
-      ctx.beginPath();
-      ctx.arc(ex + 3, 110, 2.8, 0, Math.PI * 2);
+      ctx.arc(ex + 1.4, 110.5, 1.4, 0, Math.PI * 2);
       ctx.fill();
     });
-    drawSVGPath(ctx, `M${152 + fx},94 Q${168 + fx},85 ${184 + fx},94`, null, '#121216', 5.5);
-    drawSVGPath(ctx, `M${216 + fx},94 Q${232 + fx},85 ${248 + fx},94`, null, '#121216', 5.5);
 
-    // Jet-Black Swept Hair
+    drawSVGPath(ctx, `M${166 + fx},98 Q${178 + fx},92 ${189 + fx},97`, null, '#18181d', 4.2);
+    drawSVGPath(ctx, `M${211 + fx},97 Q${222 + fx},92 ${234 + fx},98`, null, '#18181d', 4.2);
+
+    drawSVGPath(ctx, `M${200 + fx},110 L${200 + fx},127 Q${204 + fx},130 ${206 + fx},127`, null, '#d4886a', 3.0);
+
     drawSVGPath(
       ctx,
-      `M${128 + turnX * 0.4},114 C118,52 154,20 214,24 C256,26 278,42 280,48 C264,56 276,86 ${270 + turnX * 0.4},114 C262,78 242,64 ${200 + fx * 0.5},66 C156,68 136,84 ${128 + turnX * 0.4},114 Z`,
+      `M${151 + turnX * 0.4},122 C${150 + turnX * 0.4},168 170,187 ${200 + fx * 0.4},187 C230,187 ${250 + turnX * 0.4},168 ${249 + turnX * 0.4},122 L${240 + fx * 0.4},122 L${238 + fx * 0.4},142 Q${200 + fx * 0.5},132 ${162 + fx * 0.4},142 L${160 + fx * 0.4},122 Z`,
+      '#18181d'
+    );
+
+    drawSVGPath(
+      ctx,
+      `M${180 + fx},146 L${220 + fx},146 C${218 + fx},164 ${182 + fx},164 ${180 + fx},146 Z`,
+      '#ffffff'
+    );
+
+    drawSVGPath(
+      ctx,
+      `M${150 + turnX * 0.4},118 L${148 + turnX * 0.4},82 C146,52 168,38 202,40 C228,42 252,52 252,78 L${250 + turnX * 0.4},118 L${242 + turnX * 0.4},118 L${242 + turnX * 0.4},84 C228,74 176,74 ${158 + turnX * 0.4},84 L${158 + turnX * 0.4},118 Z`,
+      '#16161b'
+    );
+    drawSVGPath(
+      ctx,
+      `M${162 + turnX * 0.4},52 C168,32 198,32 222,44 C204,54 176,56 ${162 + turnX * 0.4},52 Z`,
       '#16161b'
     );
   } else {
-    // Jet-Black Back of Head Hair
     drawSVGPath(
       ctx,
-      `M${126 + turnX * 0.3},135 C118,55 152,22 200,22 C248,22 282,55 ${274 + turnX * 0.3},135 C265,162 242,174 200,174 C158,174 135,162 ${126 + turnX * 0.3},135 Z`,
-      '#141418'
+      `M${148 + turnX * 0.3},128 C144,58 168,38 200,38 C232,38 256,58 ${252 + turnX * 0.3},128 C244,154 226,166 200,166 C174,166 156,154 ${148 + turnX * 0.3},128 Z`,
+      '#16161b'
     );
-    drawSVGPath(ctx, 'M165,55 Q200,75 235,55 M155,95 Q200,115 245,95', null, '#26262e', 3);
   }
 
   ctx.restore();
@@ -451,7 +577,7 @@ function renderManMultiAngle({
 }
 
 // ============================================================================
-// 5. MULTI-ANGLE ARTICULATED KATHAK LEAD DANCER (JET-BLACK HAIR)
+// 5. MULTI-ANGLE ARTICULATED KATHAK LEAD DANCER
 // ============================================================================
 const kathakCanvas = document.createElement('canvas');
 kathakCanvas.width = 440;
@@ -484,16 +610,16 @@ function renderKathakMultiAngle({
   ctx.save();
   ctx.translate(-footStep * 0.3, footStep * 0.5);
   drawSVGPath(ctx, 'M198,452 L194,536 L220,558 L228,548 L216,528 L222,452 Z', '#e5ab7d');
-  drawSVGPath(ctx, 'M195,448 L222,448 L218,512 L192,512 Z', '#ecd5a7');
-  ctx.fillStyle = '#b87b28';
+  drawSVGPath(ctx, 'M195,448 L222,448 L218,512 L192,512 Z', '#f4f1ea');
+  ctx.fillStyle = '#d5ae64';
   ctx.fillRect(190, 506, 28, 13);
   ctx.restore();
 
   ctx.save();
   ctx.translate(footStep * 0.3, -footStep * 0.5);
   drawSVGPath(ctx, 'M226,452 L254,514 L248,546 L260,548 L272,512 L244,452 Z', '#e5ab7d');
-  drawSVGPath(ctx, 'M224,448 L248,448 L264,498 L242,506 Z', '#ecd5a7');
-  ctx.fillStyle = '#b87b28';
+  drawSVGPath(ctx, 'M224,448 L248,448 L264,498 L242,506 Z', '#f4f1ea');
+  ctx.fillStyle = '#d5ae64';
   ctx.fillRect(240, 496, 28, 13);
   ctx.restore();
 
@@ -503,8 +629,8 @@ function renderKathakMultiAngle({
   const lElbowAng = lerp(-0.45, -1.05, danceBlend);
 
   const drawDancerArms = () => {
-    drawArticulatedArm(ctx, 188 + turnX * 0.3, 196, 62, 58, rShoulderAng, rElbowAng, '#f3dfb9', '#e5ab7d', true, false);
-    drawArticulatedArm(ctx, 252 + turnX * 0.3, 196, 62, 58, lShoulderAng, lElbowAng, '#f3dfb9', '#e5ab7d', true, false);
+    drawArticulatedArm(ctx, 188 + turnX * 0.3, 196, 62, 58, rShoulderAng, rElbowAng, '#f4f1ea', '#e5ab7d', true, false);
+    drawArticulatedArm(ctx, 252 + turnX * 0.3, 196, 62, 58, lShoulderAng, lElbowAng, '#f4f1ea', '#e5ab7d', true, false);
   };
 
   if (isBackView) drawDancerArms();
@@ -512,42 +638,42 @@ function renderKathakMultiAngle({
   drawSVGPath(
     ctx,
     `M242,188 C284,242 ${320 + skirtSway},295 ${324 + skirtSway},358 C300,378 272,354 248,280 Z`,
-    '#c88732',
-    '#8f5c18',
+    '#62694b',
+    '#d5ae64',
     2
   );
 
   drawSVGPath(
     ctx,
     `M186,262 L254,262 L${342 + skirtSway},446 C262,496 178,496 ${98 + skirtSway},446 Z`,
-    '#f3dfb9',
-    '#9e6b24',
+    '#f4f1ea',
+    '#d5ae64',
     2.2
   );
   drawSVGPath(
     ctx,
     `M${101 + skirtSway},434 C178,484 262,484 ${339 + skirtSway},434 L${343 + skirtSway},448 C262,498 178,498 ${97 + skirtSway},448 Z`,
-    '#d18e32'
+    '#d5ae64'
   );
   [-45, -15, 15, 45].forEach((px) => {
-    drawSVGPath(ctx, `M${220 + px * 0.45},264 L${220 + px * 1.9 + skirtSway * 0.8},456`, null, '#cfa968', 1.8);
+    drawSVGPath(ctx, `M${220 + px * 0.45},264 L${220 + px * 1.9 + skirtSway * 0.8},456`, null, '#c2c4b6', 1.8);
   });
 
   if (!isBackView) {
-    drawSVGPath(ctx, 'M182,186 L258,186 L254,262 L186,262 Z', '#f3dfb9', '#9e6b24', 2);
-    drawSVGPath(ctx, 'M236,184 L260,188 L226,262 L194,262 Z', '#d18e32');
-    drawSVGPath(ctx, 'M184,254 L256,254 L256,266 L184,266 Z', '#d18e32');
+    drawSVGPath(ctx, 'M182,186 L258,186 L254,262 L186,262 Z', '#f4f1ea', '#d5ae64', 2);
+    drawSVGPath(ctx, 'M236,184 L260,188 L226,262 L194,262 Z', '#62694b');
+    drawSVGPath(ctx, 'M184,254 L256,254 L256,266 L184,266 Z', '#d5ae64');
   } else {
-    drawSVGPath(ctx, 'M182,186 L258,186 L254,262 L186,262 Z', '#ecd4a6', '#9e6b24', 2);
+    drawSVGPath(ctx, 'M182,186 L258,186 L254,262 L186,262 Z', '#ebe6da', '#d5ae64', 2);
     drawSVGPath(ctx, 'M202,186 C202,225 238,225 238,186 Z', '#e5ab7d');
-    drawSVGPath(ctx, 'M200,194 L240,194 M220,194 L214,230 M220,194 L226,230', null, '#d18e32', 2.5);
-    ctx.fillStyle = '#d18e32';
+    drawSVGPath(ctx, 'M200,194 L240,194 M220,194 L214,230 M220,194 L226,230', null, '#d5ae64', 2.5);
+    ctx.fillStyle = '#d5ae64';
     ctx.beginPath();
     ctx.arc(214, 232, 5, 0, Math.PI * 2);
     ctx.arc(226, 232, 5, 0, Math.PI * 2);
     ctx.fill();
-    drawSVGPath(ctx, 'M194,186 L222,186 L256,262 L228,262 Z', '#d18e32');
-    drawSVGPath(ctx, 'M184,254 L256,254 L256,266 L184,266 Z', '#d18e32');
+    drawSVGPath(ctx, 'M194,186 L222,186 L256,262 L228,262 Z', '#62694b');
+    drawSVGPath(ctx, 'M184,254 L256,254 L256,266 L184,266 Z', '#d5ae64');
   }
 
   if (!isBackView) drawDancerArms();
@@ -556,42 +682,40 @@ function renderKathakMultiAngle({
   ctx.fillRect(208 + turnX * 0.25, 160, 24, 28);
 
   if (!isBackView) {
-    // Jet-Black Hair Bun & Crown (Request #4)
     ctx.fillStyle = '#141418';
     ctx.beginPath();
-    ctx.arc(194 + turnX * 0.2, 126, 24, 0, Math.PI * 2);
+    ctx.arc(192 + turnX * 0.2, 126, 24, 0, Math.PI * 2);
     ctx.fill();
     [112, 126, 140].forEach((fy) => {
       ctx.fillStyle = '#fffdf6';
       ctx.beginPath();
-      ctx.arc(175 + turnX * 0.2, fy, 8, 0, Math.PI * 2);
+      ctx.arc(173 + turnX * 0.2, fy, 8, 0, Math.PI * 2);
       ctx.fill();
     });
 
-    drawSVGPath(ctx, `M${202 + turnX * 0.3},180 Q${220 + turnX * 0.3},196 ${238 + turnX * 0.3},180`, null, '#d18e32', 5);
+    drawSVGPath(ctx, `M${202 + turnX * 0.3},180 Q${220 + turnX * 0.3},196 ${238 + turnX * 0.3},180`, null, '#d5ae64', 5);
+    ctx.fillStyle = '#d5ae64';
+    ctx.beginPath();
+    ctx.arc(192 + turnX * 0.4, 142, 5.5, 0, Math.PI * 2);
+    ctx.arc(252 + turnX * 0.4, 142, 5.5, 0, Math.PI * 2);
+    ctx.fill();
 
     ctx.save();
     ctx.translate(222 + turnX * 0.45, 132);
-    ctx.rotate(0.1 + Math.sin(danceTime * 1.9) * 0.08 * danceBlend);
-    ctx.fillStyle = '#e5ab7d';
-    ctx.beginPath();
-    ctx.ellipse(0, 0, 28, 34, 0, 0, Math.PI * 2);
-    ctx.fill();
-    drawSVGPath(ctx, 'M-26,-12 C-22,-42 24,-39 28,-8 C14,-22 -12,-24 -26,-12 Z', '#141418');
+    ctx.rotate(0.08 + Math.sin(danceTime * 1.9) * 0.07 * danceBlend);
 
-    const fx = turnX * 0.35;
-    ctx.fillStyle = '#d18e32';
+    ctx.fillStyle = '#e8b288';
     ctx.beginPath();
-    ctx.arc(6 + fx, -22, 5, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = '#a83232';
-    ctx.beginPath();
-    ctx.arc(4 + fx, -10, 2.5, 0, Math.PI * 2);
+    ctx.ellipse(0, 0, 29, 35, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    drawSVGPath(ctx, `M${-14 + fx},-8 Q${-6 + fx},-13 ${2 + fx},-8`, null, '#141418', 2.5);
-    drawSVGPath(ctx, `M${8 + fx},-6 Q${16 + fx},-11 ${22 + fx},-5`, null, '#141418', 2.5);
-    drawSVGPath(ctx, `M${-6 + fx},14 Q${2 + fx},20 ${10 + fx},14`, null, '#9e3b3b', 2.5);
+    drawSVGPath(ctx, 'M-29,-8 C-26,-42 26,-42 29,-8 C16,-24 -16,-24 -29,-8 Z', '#141418');
+    ctx.fillStyle = '#d5ae64';
+    ctx.beginPath();
+    ctx.arc(turnX * 0.2, -21, 5, 0, Math.PI * 2);
+    ctx.fill();
+
+    drawExpressiveFemaleFace(ctx, 0, 2, turnX, 1.0, '#8c2424', true);
     ctx.restore();
   } else {
     ctx.fillStyle = '#141418';
@@ -615,7 +739,7 @@ function renderKathakMultiAngle({
 }
 
 // ============================================================================
-// 6. MULTI-ANGLE ARTICULATED TROUPE DANCERS (FRONT & BACK VIEWS)
+// 6. MULTI-ANGLE ARTICULATED TROUPE DANCERS (OLIVE-SAGE, IVORY & GOLD PALETTE)
 // ============================================================================
 function createAnimatedTroupeDancer(skirtHex, blouseHex, dupattaHex, dotHex) {
   const canvas = document.createElement('canvas');
@@ -677,23 +801,18 @@ function createAnimatedTroupeDancer(skirtHex, blouseHex, dupattaHex, dotHex) {
       drawSVGPath(ctx, 'M164,174 C164,210 196,210 196,174 Z', '#e09f7d');
       drawSVGPath(ctx, `M174,174 L214,174 L${162 + sway * 0.5},345 L${122 + sway * 0.5},335 Z`, dupattaHex);
     }
-    ctx.fillStyle = '#f6bd60';
+    ctx.fillStyle = '#d5ae64';
     ctx.fillRect(146, 236, 68, 9);
 
     if (!isBack) {
       drawSVGPath(ctx, 'M144,112 C134,150 140,185 154,205 L206,205 C220,185 226,150 216,112 Z', '#141418');
-      ctx.fillStyle = '#e09f7d';
+      ctx.fillStyle = '#e5ab7d';
       ctx.beginPath();
       ctx.arc(180, 120, 28, 0, Math.PI * 2);
       ctx.fill();
       drawSVGPath(ctx, 'M152,116 C152,80 208,80 208,116 C194,100 166,100 152,116 Z', '#141418');
-      ctx.fillStyle = '#141418';
-      ctx.beginPath();
-      ctx.arc(168, 118, 3.8, 0, Math.PI * 2);
-      ctx.arc(192, 118, 3.8, 0, Math.PI * 2);
-      ctx.fill();
-      drawSVGPath(ctx, 'M172,134 Q180,141 188,134', null, '#ffffff', 2.8);
-      drawSVGPath(ctx, 'M164,170 Q180,190 196,170', null, '#ffffff', 2.8);
+      drawExpressiveFemaleFace(ctx, 180, 124, 0, 0.88, '#8c2424', true);
+      drawSVGPath(ctx, 'M164,170 Q180,190 196,170', null, '#d5ae64', 2.8);
     } else {
       drawSVGPath(ctx, 'M146,110 C138,155 146,205 160,225 L200,225 C214,205 222,155 214,110 Z', '#121216');
       ctx.fillStyle = '#fffdf6';
@@ -717,8 +836,6 @@ function createAnimatedTroupeDancer(skirtHex, blouseHex, dupattaHex, dotHex) {
 
 // ============================================================================
 // 7. MULTI-ANGLE ARTICULATED BRIDE & GROOM
-//    - Both His & Her Hair are Jet Black (Request #4)
-//    - Bride's Gown is Pure White with Pearl Beadwork & Bouquet in Hand (Request #3)
 // ============================================================================
 const weddingCanvas = document.createElement('canvas');
 weddingCanvas.width = 540;
@@ -743,11 +860,11 @@ function renderWeddingCoupleMultiAngle(relAngle = 0, walkPhase = 0, walkAmt = 0)
     ctx.scale(-1, 1);
   }
 
-  // ================= GROOM (WORLD LEFT, JET-BLACK HAIR) =================
+  // ================= GROOM (WORLD LEFT) =================
   const gFootL = legStep * 0.5;
   const gFootR = -legStep * 0.5;
 
-  ctx.fillStyle = '#1e1612';
+  ctx.fillStyle = '#3b2019';
   ctx.beginPath();
   ctx.ellipse(156, 544 + gFootL, 15, 9, 0, 0, Math.PI * 2);
   ctx.ellipse(204, 544 + gFootR, 15, 9, 0, 0, Math.PI * 2);
@@ -755,88 +872,121 @@ function renderWeddingCoupleMultiAngle(relAngle = 0, walkPhase = 0, walkAmt = 0)
 
   drawSVGPath(
     ctx,
-    `M140,360 L220,360 L214,${538 + gFootR} L190,${538 + gFootR} L180,410 L170,${538 + gFootL} L146,${538 + gFootL} Z`,
-    '#22252a'
+    `M140,356 L220,356 L214,${538 + gFootR} L190,${538 + gFootR} L180,408 L170,${538 + gFootL} L146,${538 + gFootL} Z`,
+    '#1d2d44'
   );
 
-  drawArticulatedArm(ctx, 126, 224, 62, 58, -0.12 + legStep * 0.008, 0.15, '#22252a', '#f7cbb2', false, false);
-  drawArticulatedArm(ctx, 232, 224, 64, 62, 0.34, 0.22, '#22252a', '#f7cbb2', false, false);
+  drawArticulatedArm(ctx, 126, 224, 62, 58, -0.12 + legStep * 0.008, 0.15, '#1d2d44', '#f3b69b', false, false, false, true);
+  drawArticulatedArm(ctx, 232, 224, 64, 62, 0.34, 0.22, '#1d2d44', '#f3b69b', false, false, false, true);
 
   if (!isBackView) {
-    drawSVGPath(ctx, 'M124,212 L236,212 L230,370 L130,370 Z', '#22252a');
-    drawSVGPath(ctx, 'M158,212 L202,212 L180,308 Z', '#ffffff');
-    drawSVGPath(ctx, 'M165,220 L180,228 L165,236 Z', '#16181c');
-    drawSVGPath(ctx, 'M195,220 L180,228 L195,236 Z', '#16181c');
-    // Pearl White Pocket Square & Boutonniere
-    ctx.fillStyle = '#ffffff';
+    drawSVGPath(ctx, 'M156,210 L204,210 L180,308 Z', '#ffffff');
+    drawSVGPath(ctx, 'M174,218 L186,218 L190,282 L180,298 L170,282 Z', '#62694b');
+    drawSVGPath(
+      ctx,
+      'M124,214 L156,208 L180,292 L204,208 L236,214 L230,352 C230,366 192,366 180,348 C168,366 130,366 130,352 Z',
+      '#1d2d44'
+    );
+    drawSVGPath(ctx, 'M156,208 L142,242 L152,246 L146,256 L180,292 Z', '#142032');
+    drawSVGPath(ctx, 'M204,208 L218,242 L208,246 L214,256 L180,292 Z', '#142032');
+    ctx.fillStyle = '#62694b';
     ctx.beginPath();
-    ctx.arc(148, 252, 6, 0, Math.PI * 2);
+    ctx.arc(148, 250, 8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#f4f1ea';
+    ctx.beginPath();
+    ctx.arc(150, 248, 5.5, 0, Math.PI * 2);
     ctx.fill();
   } else {
     drawSVGPath(ctx, 'M160,204 L200,204 L204,216 L156,216 Z', '#ffffff');
-    drawSVGPath(ctx, 'M124,212 L236,212 L230,370 L130,370 Z', '#1b1d22');
-    drawSVGPath(ctx, 'M180,214 L180,370 M180,330 L176,370', null, '#111316', 2.5);
+    drawSVGPath(ctx, 'M124,212 L236,212 L230,366 L130,366 Z', '#162336');
+    drawSVGPath(ctx, 'M180,214 L180,366', null, '#0f1826', 2.5);
   }
 
-  ctx.fillStyle = '#f7cbb2';
-  ctx.fillRect(168, 188, 24, 28);
-  ctx.beginPath();
-  ctx.ellipse(180 + turnX * 0.3, 136, 54, 48, 0, 0, Math.PI * 2);
-  ctx.fill();
+  ctx.fillStyle = '#e09d80';
+  ctx.fillRect(168, 188, 24, 26);
+
+  drawSVGPath(
+    ctx,
+    `M${138 + turnX * 0.3},102 C${138 + turnX * 0.3},76 154,68 180,68 C206,68 ${222 + turnX * 0.3},76 ${222 + turnX * 0.3},102 L${222 + turnX * 0.3},150 C${222 + turnX * 0.3},176 204,188 180,188 C156,188 ${138 + turnX * 0.3},176 ${138 + turnX * 0.3},150 Z`,
+    '#f3b69b'
+  );
 
   if (!isBackView) {
     const gx = turnX * 0.5;
-    ctx.fillStyle = '#141418';
+    ctx.fillStyle = 'rgba(228, 128, 108, 0.36)';
     ctx.beginPath();
-    ctx.arc(152 + gx, 143, 6.5, 0, Math.PI * 2);
-    ctx.arc(208 + gx, 143, 6.5, 0, Math.PI * 2);
+    ctx.arc(152 + gx, 136, 8.5, 0, Math.PI * 2);
+    ctx.arc(208 + gx, 136, 8.5, 0, Math.PI * 2);
     ctx.fill();
-    drawSVGPath(ctx, `M${142 + gx},124 Q${152 + gx},118 ${162 + gx},124`, null, '#141418', 3.8);
-    drawSVGPath(ctx, `M${198 + gx},124 Q${208 + gx},118 ${218 + gx},124`, null, '#141418', 3.8);
-    drawSVGPath(ctx, `M${168 + gx},164 Q${180 + gx},172 ${192 + gx},164`, null, '#c86d64', 3);
-    // Groom Jet-Black Hair
+
+    [160 + gx, 200 + gx].forEach((ex) => {
+      ctx.fillStyle = '#18181d';
+      ctx.beginPath();
+      ctx.arc(ex, 122, 4.4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(ex + 1.2, 120.5, 1.3, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    drawSVGPath(ctx, `M${150 + gx},109 Q${160 + gx},104 ${170 + gx},108`, null, '#18181d', 3.8);
+    drawSVGPath(ctx, `M${190 + gx},108 Q${200 + gx},104 ${210 + gx},109`, null, '#18181d', 3.8);
+
+    drawSVGPath(ctx, `M${180 + gx},120 L${180 + gx},135 Q${184 + gx},138 ${186 + gx},135`, null, '#d4886a', 2.6);
+
     drawSVGPath(
       ctx,
-      'M124,130 C118,70 155,50 195,54 C232,58 244,86 236,130 C226,100 202,94 168,96 C142,98 130,110 124,130 Z',
-      '#141418'
+      `M${137 + turnX * 0.3},132 C${136 + turnX * 0.3},172 154,189 ${180 + gx * 0.4},189 C206,189 ${224 + turnX * 0.3},172 ${223 + turnX * 0.3},132 L${215 + gx * 0.4},132 L${213 + gx * 0.4},148 Q${180 + gx * 0.5},140 ${147 + gx * 0.4},148 L${145 + gx * 0.4},132 Z`,
+      '#18181d'
+    );
+    drawSVGPath(
+      ctx,
+      `M${163 + gx},152 L${197 + gx},152 C${195 + gx},168 ${165 + gx},168 ${163 + gx},152 Z`,
+      '#ffffff'
+    );
+
+    drawSVGPath(
+      ctx,
+      `M${136 + turnX * 0.3},128 L${134 + turnX * 0.3},94 C132,68 152,54 182,56 C206,58 226,66 226,90 L${224 + turnX * 0.3},128 L${217 + turnX * 0.3},128 L${217 + turnX * 0.3},96 C204,86 158,86 ${143 + turnX * 0.3},96 L${143 + turnX * 0.3},128 Z`,
+      '#16161b'
+    );
+    drawSVGPath(
+      ctx,
+      `M${146 + turnX * 0.3},68 C152,50 178,50 200,60 C184,70 160,72 ${146 + turnX * 0.3},68 Z`,
+      '#16161b'
     );
   } else {
-    // Groom Jet-Black Back of Head Hair
     drawSVGPath(
       ctx,
-      'M124,142 C118,72 150,50 180,50 C210,50 242,72 236,142 C224,164 204,172 180,172 C156,172 136,164 124,142 Z',
-      '#141418'
+      `M${134 + turnX * 0.3},138 C130,72 152,54 180,54 C208,54 230,72 ${226 + turnX * 0.3},138 C218,162 202,172 180,172 C158,172 142,162 ${134 + turnX * 0.3},138 Z`,
+      '#16161b'
     );
   }
 
-  // ================= BRIDE (WORLD RIGHT: PURE WHITE PEARL GOWN, BOUQUET & BLACK HAIR) =================
+  // ================= BRIDE (WORLD RIGHT) =================
   const gownSway = Math.sin(walkPhase) * 8 * walkAmt;
 
   if (!isBackView) {
-    // Cascading Wavy Jet-Black Hair Behind Shoulders (Front View)
     drawSVGPath(ctx, 'M312,124 C302,184 308,244 322,284 L418,284 C432,244 438,184 428,124 Z', '#141418');
   }
 
-  // Bride Inner Left Arm (Clasping Groom's Right Hand at 272, 342) & Outer Right Arm Holding Bouquet
   drawArticulatedArm(ctx, 334, 224, 62, 60, -0.42, -0.25, '#ffffff', '#f7cbb2', true, false, true);
   const rightHandPos = drawArticulatedArm(ctx, 406, 224, 58, 56, 0.35, -0.85, '#ffffff', '#f7cbb2', true, false, true);
 
-  // Clasped Hands Between Bride & Groom
   ctx.fillStyle = '#f5bfa6';
   ctx.beginPath();
   ctx.arc(272, 342, 13, 0, Math.PI * 2);
   ctx.fill();
 
-  // Pure White Bridal Gown with Soft Pearl-Silk Shading (`#ffffff` & `#f1f5f9`)
   drawSVGPath(
     ctx,
     `M332,216 L408,216 L398,284 L${482 + gownSway},550 C405,578 335,578 ${268 + gownSway},550 L342,284 Z`,
     '#ffffff',
-    '#dce3ec',
+    '#d8d7dc',
     3
   );
 
-  // Delicate Gown Silk Folds & Pleat Lines
   drawSVGPath(
     ctx,
     `M352,286 L${316 + gownSway},552 M370,286 L${375 + gownSway},560 M388,286 L${438 + gownSway},552`,
@@ -845,28 +995,24 @@ function renderWeddingCoupleMultiAngle(relAngle = 0, walkPhase = 0, walkAmt = 0)
     2.5
   );
 
-  // Lustrous Pearl Beadwork (Neckline, Waistband & Cascading Pearl Strands Down Skirt — Request #3!)
-  // Pearl Waist Belt
   for (let px = 342; px <= 398; px += 7) {
     ctx.fillStyle = '#ffffff';
-    ctx.strokeStyle = '#cbd5e1';
+    ctx.strokeStyle = '#d5ae64';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
     ctx.arc(px, 284, 3.5, 0, Math.PI * 2);
     ctx.fill();
     ctx.stroke();
   }
-  // Pearl Neckline Trim
   for (let px = 338; px <= 402; px += 8) {
     ctx.fillStyle = '#ffffff';
-    ctx.strokeStyle = '#cbd5e1';
+    ctx.strokeStyle = '#d5ae64';
     ctx.lineWidth = 1.2;
     ctx.beginPath();
     ctx.arc(px, 222 + Math.sin(((px - 338) / 64) * Math.PI) * 10, 3, 0, Math.PI * 2);
     ctx.fill();
     ctx.stroke();
   }
-  // Cascading Pearl Embroidery Dots Across the White Gown Skirt & Scalloped Pearl Hem
   const pearlColumns = [-0.7, -0.35, 0, 0.35, 0.7];
   for (let r = 1; r <= 7; r++) {
     const py = 295 + r * 34;
@@ -883,26 +1029,22 @@ function renderWeddingCoupleMultiAngle(relAngle = 0, walkPhase = 0, walkAmt = 0)
     });
   }
 
-  // Lush Bridal Bouquet Held in Her Right Hand (White & Blush Roses, Baby's Breath Pearls & Sage Leaves)
   const bx = isBackView ? 418 : rightHandPos.wx - 8;
   const by = isBackView ? 318 : rightHandPos.wy + 8;
   ctx.save();
   ctx.translate(bx, by);
-  // Satin Pearl-White Ribbon Wrap Handle
-  drawSVGPath(ctx, 'M-6,12 L6,12 L10,38 L-10,38 Z', '#f8fafc', '#cbd5e1', 2);
-  // Eucalyptus & Sage Foliage Backing
-  drawSVGPath(ctx, 'M-28,-8 C-38,-28 -10,-42 0,-28 C10,-42 38,-28 28,-8 C36,12 12,24 0,18 C-12,24 -36,12 -28,-8 Z', '#4d7c5d');
-  // White & Soft Blush Rose Blooms + Pearl Sprigs
+  drawSVGPath(ctx, 'M-6,12 L6,12 L10,38 L-10,38 Z', '#f4f1ea', '#d5ae64', 2);
+  drawSVGPath(ctx, 'M-28,-8 C-38,-28 -10,-42 0,-28 C10,-42 38,-28 28,-8 C36,12 12,24 0,18 C-12,24 -36,12 -28,-8 Z', '#62694b');
   [
     [-12, -12, 12, '#ffffff'],
-    [12, -10, 12, '#ffe4e6'],
+    [12, -10, 12, '#f4f1ea'],
     [0, -20, 13, '#ffffff'],
-    [-14, 4, 11, '#fecdd3'],
-    [14, 5, 11, '#ffffff'],
-    [0, 0, 14, '#fff1f2']
+    [-14, 4, 11, '#c2c4b6'],
+    [14, 5, 11, '#f4f1ea'],
+    [0, 0, 14, '#fffdf9']
   ].forEach(([rx, ry, rr, rcol]) => {
     ctx.fillStyle = rcol;
-    ctx.strokeStyle = '#e2e8f0';
+    ctx.strokeStyle = '#d5ae64';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
     ctx.arc(rx, ry, rr, 0, Math.PI * 2);
@@ -911,38 +1053,29 @@ function renderWeddingCoupleMultiAngle(relAngle = 0, walkPhase = 0, walkAmt = 0)
   });
   ctx.restore();
 
-  // Bride Head, Pearl Drop Earrings & Jet-Black Hair (Front vs. Back View)
   ctx.fillStyle = '#f7cbb2';
   ctx.fillRect(358, 190, 24, 28);
   ctx.beginPath();
-  ctx.ellipse(370 + turnX * 0.3, 140, 52, 46, 0, 0, Math.PI * 2);
+  ctx.ellipse(370 + turnX * 0.3, 140, 50, 46, 0, 0, Math.PI * 2);
   ctx.fill();
 
   if (!isBackView) {
-    const fbx = turnX * 0.5;
-    // Pearl Earrings
     ctx.fillStyle = '#ffffff';
-    ctx.strokeStyle = '#cbd5e1';
+    ctx.strokeStyle = '#d5ae64';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.arc(316, 152, 5.5, 0, Math.PI * 2);
-    ctx.arc(424, 152, 5.5, 0, Math.PI * 2);
+    ctx.arc(318, 152, 5.5, 0, Math.PI * 2);
+    ctx.arc(422, 152, 5.5, 0, Math.PI * 2);
     ctx.fill();
     ctx.stroke();
 
-    ctx.fillStyle = '#141418';
-    ctx.beginPath();
-    ctx.arc(344 + fbx, 144, 6.5, 0, Math.PI * 2);
-    ctx.arc(396 + fbx, 144, 6.5, 0, Math.PI * 2);
-    ctx.fill();
-    drawSVGPath(ctx, `M${358 + fbx},164 Q${370 + fbx},173 ${382 + fbx},164`, null, '#b84a58', 3.2);
-    // Jet-Black Wavy Hair Crown + Pearl Tiara Band
+    drawExpressiveFemaleFace(ctx, 370 + turnX * 0.35, 146, turnX, 1.35, '#d5ae64', true);
+
     drawSVGPath(
       ctx,
-      'M316,132 C316,76 355,60 392,66 C422,70 432,100 424,136 C412,106 388,100 355,104 C332,106 322,118 316,132 Z',
+      'M318,132 C318,76 355,60 392,66 C422,70 430,100 422,136 C410,106 388,100 355,104 C332,106 324,118 318,132 Z',
       '#141418'
     );
-    // Pearl Hair Tiara Arc
     for (let a = 0.2; a <= Math.PI - 0.2; a += Math.PI / 7) {
       ctx.fillStyle = '#ffffff';
       ctx.beginPath();
@@ -950,7 +1083,6 @@ function renderWeddingCoupleMultiAngle(relAngle = 0, walkPhase = 0, walkAmt = 0)
       ctx.fill();
     }
   } else {
-    // BACK OF BRIDE: Cascading Wavy Jet-Black Hair + Pearl Hairpiece & Sheer White Pearl Veil
     drawSVGPath(
       ctx,
       'M316,125 C312,72 342,58 370,58 C398,58 428,72 424,125 C436,185 432,255 414,302 C385,318 355,318 326,302 C308,255 304,185 316,125 Z',
@@ -969,7 +1101,6 @@ function renderWeddingCoupleMultiAngle(relAngle = 0, walkPhase = 0, walkAmt = 0)
       ctx.arc(fx, 138 + Math.sin(i) * 3, 6.5, 0, Math.PI * 2);
       ctx.fill();
     });
-    // Sheer Translucent White Pearl Veil Flowing Down to Gown
     drawSVGPath(
       ctx,
       `M335,142 L405,142 L${458 + gownSway},490 C395,515 345,515 ${292 + gownSway},490 Z`,
@@ -1003,15 +1134,15 @@ const weddingCoupleStandee = makeStandeeMesh(weddingTex, 2.15, 2.35);
 weddingCoupleStandee.visible = false;
 scene.add(manStandee, ladyStandee, weddingCoupleStandee);
 
-// Instantiate 5 Troupe Dancers on Deeper Stage (`z = -7.4` to `-8.2`)
+// Instantiate 5 Troupe Dancers on Stage in Coordinated Olive-Sage, Ivory & Gold Palette
 const troupeGroup = new THREE.Group();
 scene.add(troupeGroup);
 const troupeSpecs = [
-  { x: -2.9, z: -7.4, s: '#f7a01b', b: '#e5386d', d: '#e5386d', dot: '#c92a2a' },
-  { x: -1.5, z: -7.9, s: '#6a359c', b: '#522b84', d: '#f6bd60', dot: '#f6bd60' },
-  { x: 0.0,  z: -8.2, s: '#1b998b', b: '#1b998b', d: '#e5386d', dot: '#f7a01b' },
-  { x: 1.5,  z: -7.9, s: '#f6bd60', b: '#e08e26', d: '#2b9348', dot: '#e5386d' },
-  { x: 2.9,  z: -7.4, s: '#e5386d', b: '#522b84', d: '#f7a01b', dot: '#f6bd60' }
+  { x: -2.9, z: -7.4, s: '#62694b', b: '#3e442f', d: '#d5ae64', dot: '#f4f1ea' },
+  { x: -1.5, z: -7.9, s: '#c2c4b6', b: '#62694b', d: '#f4f1ea', dot: '#62694b' },
+  { x: 0.0,  z: -8.2, s: '#d5ae64', b: '#62694b', d: '#f4f1ea', dot: '#3e442f' },
+  { x: 1.5,  z: -7.9, s: '#c2c4b6', b: '#62694b', d: '#d5ae64', dot: '#62694b' },
+  { x: 2.9,  z: -7.4, s: '#62694b', b: '#3e442f', d: '#f4f1ea', dot: '#d5ae64' }
 ];
 const troupeDancers = troupeSpecs.map((sp) => {
   const d = createAnimatedTroupeDancer(sp.s, sp.b, sp.d, sp.dot);
@@ -1071,13 +1202,13 @@ ledCanvas.width = 512;
 ledCanvas.height = 256;
 const ledCtx = ledCanvas.getContext('2d');
 const ledGrad = ledCtx.createLinearGradient(0, 0, 512, 256);
-ledGrad.addColorStop(0, '#2b3a55');
-ledGrad.addColorStop(0.5, '#7c5d86');
-ledGrad.addColorStop(1, '#d16d7e');
+ledGrad.addColorStop(0, '#2c3022');
+ledGrad.addColorStop(0.5, '#62694b');
+ledGrad.addColorStop(1, '#c59b4e');
 ledCtx.fillStyle = ledGrad;
 ledCtx.fillRect(0, 0, 512, 256);
 for (let w = 0; w < 4; w++) {
-  ledCtx.strokeStyle = w % 2 === 0 ? 'rgba(168,218,220,0.75)' : 'rgba(255,229,153,0.75)';
+  ledCtx.strokeStyle = w % 2 === 0 ? 'rgba(244,241,234,0.78)' : 'rgba(213,174,100,0.75)';
   ledCtx.lineWidth = 6;
   ledCtx.beginPath();
   for (let x = 0; x <= 512; x += 16) {
@@ -1124,9 +1255,9 @@ for (let i = -3; i <= 3; i++) {
   bulb.position.set(lx, 4.94, -6.8);
 
   const beamMat = new THREE.MeshBasicMaterial({
-    color: i % 2 === 0 ? 0xffe599 : 0xffcad4,
+    color: i % 2 === 0 ? 0xf4f1ea : 0xd5ae64,
     transparent: true,
-    opacity: 0.14,
+    opacity: 0.15,
     side: THREE.DoubleSide,
     depthWrite: false
   });
@@ -1164,26 +1295,131 @@ auditoriumCeilingLight.position.set(0, 5.35, 0.5);
 stageSet.add(auditoriumCeilingLight);
 
 // ============================================================================
-// 10. SCENE 1 CLASSROOM LECTURE HALL + CHALKBOARD + LAPTOP & DSLR WORKSTATION
+// 10. SCENE 1 CLASSROOM + MINIMALIST "Digital Film Making" & CAMERA PPT BOARD
 // ============================================================================
 const classroomSet = new THREE.Group();
 scene.add(classroomSet);
 
+function createDigitalFilmMakingPPTSlide() {
+  const c = document.createElement('canvas');
+  c.width = 1024;
+  c.height = 640;
+  const ctx = c.getContext('2d');
+
+  ctx.fillStyle = '#f8f6f0';
+  ctx.fillRect(0, 0, 1024, 640);
+
+  ctx.strokeStyle = '#62694b';
+  ctx.lineWidth = 14;
+  ctx.strokeRect(18, 18, 988, 604);
+
+  ctx.fillStyle = '#2c3022';
+  ctx.font = 'bold 68px Georgia, serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Digital Film Making', 512, 145);
+
+  ctx.strokeStyle = '#d5ae64';
+  ctx.lineWidth = 5;
+  ctx.beginPath();
+  ctx.moveTo(312, 172);
+  ctx.lineTo(712, 172);
+  ctx.stroke();
+
+  ctx.save();
+  ctx.translate(512, 395);
+
+  ctx.fillStyle = 'rgba(44, 48, 34, 0.12)';
+  ctx.beginPath();
+  ctx.ellipse(0, 138, 195, 22, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  [-82, 52].forEach((rx) => {
+    ctx.fillStyle = '#2c3022';
+    ctx.strokeStyle = '#d5ae64';
+    ctx.lineWidth = 6;
+    ctx.beginPath();
+    ctx.arc(rx, -112, 54, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#f8f6f0';
+    for (let a = 0; a < Math.PI * 2; a += Math.PI / 3) {
+      ctx.beginPath();
+      ctx.arc(rx + Math.cos(a) * 28, -112 + Math.sin(a) * 28, 10, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.fillStyle = '#d5ae64';
+    ctx.beginPath();
+    ctx.arc(rx, -112, 9, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  ctx.fillStyle = '#2c3022';
+  ctx.strokeStyle = '#62694b';
+  ctx.lineWidth = 5;
+  ctx.beginPath();
+  ctx.roundRect(-155, -58, 280, 170, 22);
+  ctx.fill();
+  ctx.stroke();
+
+  drawSVGPath(
+    ctx,
+    'M125,-28 L168,-28 L168,82 L125,82 Z M168,-36 L235,-68 L235,122 L168,90 Z',
+    '#1e2118',
+    '#d5ae64',
+    4
+  );
+
+  ctx.fillStyle = '#181b14';
+  ctx.strokeStyle = '#d5ae64';
+  ctx.lineWidth = 8;
+  ctx.beginPath();
+  ctx.arc(-15, 28, 56, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+
+  const lensGlass = ctx.createRadialGradient(-28, 14, 6, -15, 28, 46);
+  lensGlass.addColorStop(0, '#9bd4e8');
+  lensGlass.addColorStop(0.5, '#3b6978');
+  lensGlass.addColorStop(1, '#16262e');
+  ctx.fillStyle = lensGlass;
+  ctx.beginPath();
+  ctx.arc(-15, 28, 42, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.78)';
+  ctx.beginPath();
+  ctx.arc(-30, 12, 11, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = '#e63946';
+  ctx.beginPath();
+  ctx.arc(82, -26, 9, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.restore();
+
+  return new THREE.CanvasTexture(c);
+}
+
 const boardGroup = new THREE.Group();
-boardGroup.position.set(-2.3, 1.55, 1.3);
-boardGroup.rotation.y = 0.25;
-const boardFrame = new THREE.Mesh(new THREE.BoxGeometry(1.9, 1.25, 0.08), envMats.woodDesk);
-const boardGreen = new THREE.Mesh(new THREE.PlaneGeometry(1.72, 1.08), envMats.chalkboard);
-boardGreen.position.z = 0.045;
-boardGroup.add(boardFrame, boardGreen);
+boardGroup.position.set(-2.2, 1.62, 1.3);
+boardGroup.rotation.y = 0.28;
+const boardFrame = new THREE.Mesh(new THREE.BoxGeometry(2.35, 1.5, 0.08), envMats.trussMetal);
+const boardSlideScreen = new THREE.Mesh(
+  new THREE.PlaneGeometry(2.2, 1.36),
+  new THREE.MeshBasicMaterial({ map: createDigitalFilmMakingPPTSlide() })
+);
+boardSlideScreen.position.z = 0.045;
+boardGroup.add(boardFrame, boardSlideScreen);
 classroomSet.add(boardGroup);
 
 const studentCoords = [
-  { x: -1.9, z: 2.9, col: '#5c83a6' },
-  { x: 0.2,  z: 2.9, col: '#c96f7b' },
-  { x: 2.1,  z: 2.9, col: '#6b9e78' },
-  { x: -0.9, z: 4.2, col: '#8e6fa3' },
-  { x: 1.2,  z: 4.2, col: '#d48b54' }
+  { x: -1.9, z: 2.9, col: '#62694b' },
+  { x: 0.2,  z: 2.9, col: '#8f9478' },
+  { x: 2.1,  z: 2.9, col: '#c59b4e' },
+  { x: -0.9, z: 4.2, col: '#7b8262' },
+  { x: 1.2,  z: 4.2, col: '#52583e' }
 ];
 
 studentCoords.forEach((st) => {
@@ -1263,8 +1499,8 @@ function createWorkstationProps() {
 
   const dslr = new THREE.Group();
   dslr.position.set(0, hubY + 0.34, 0);
-  const body = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.18, 0.15), envMats.trussMetal);
-  const lens = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.24, 12), envMats.trussMetal);
+  const body = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.18, 0.15), envMats.speakerBox);
+  const lens = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.24, 12), envMats.speakerBox);
   lens.rotation.x = Math.PI / 2;
   lens.position.z = -0.18;
   dslr.add(body, lens);
@@ -1278,7 +1514,7 @@ const workstation = createWorkstationProps();
 scene.add(workstation);
 
 // ============================================================================
-// 11. SCENE 2: 3D VERANDAH WITH 2D PARALLAX GARDEN IMAGE LAYERS
+// 11. SCENE 2: 3D VERANDAH WITH OLIVE-SAGE, CYPRESS & IVORY PARALLAX GARDEN
 // ============================================================================
 const verandahSet = new THREE.Group();
 scene.add(verandahSet);
@@ -1313,8 +1549,8 @@ function createBakedGardenPlane(drawFn, worldW, worldH, wPx = 1024, hPx = 320) {
 
 const parallaxFar = createBakedGardenPlane((ctx, w, h) => {
   const g = ctx.createLinearGradient(0, 80, 0, h);
-  g.addColorStop(0, 'rgba(163, 218, 185, 0.9)');
-  g.addColorStop(1, 'rgba(116, 198, 157, 0.98)');
+  g.addColorStop(0, 'rgba(194, 196, 182, 0.92)');
+  g.addColorStop(1, 'rgba(143, 148, 120, 0.98)');
   ctx.fillStyle = g;
   ctx.beginPath();
   ctx.moveTo(0, h);
@@ -1326,9 +1562,9 @@ parallaxFar.position.set(0, 2.6, -7.2);
 
 const parallaxMid = createBakedGardenPlane((ctx, w, h) => {
   [110, 260, 430, 610, 780, 920].forEach((tx, idx) => {
-    ctx.fillStyle = '#7f5f4c';
+    ctx.fillStyle = '#4e4332';
     ctx.fillRect(tx - 10, 160, 20, 140);
-    ctx.fillStyle = idx % 2 === 0 ? '#52997a' : '#e5989b';
+    ctx.fillStyle = idx % 2 === 0 ? '#62694b' : '#858c6c';
     ctx.beginPath();
     ctx.arc(tx, 130, 68, 0, Math.PI * 2);
     ctx.arc(tx - 42, 155, 48, 0, Math.PI * 2);
@@ -1340,14 +1576,17 @@ parallaxMid.position.set(0, 2.5, -4.8);
 
 const parallaxNear = createBakedGardenPlane((ctx, w, h) => {
   for (let x = 30; x < w; x += 75) {
-    ctx.fillStyle = '#407c5c';
+    ctx.fillStyle = '#4e553b';
     ctx.beginPath();
     ctx.arc(x, h - 35, 52, 0, Math.PI * 2);
     ctx.fill();
-    ctx.fillStyle = '#ff8fa3';
+    ctx.fillStyle = '#f4f1ea';
     ctx.beginPath();
-    ctx.arc(x - 12, h - 55, 11, 0, Math.PI * 2);
-    ctx.arc(x + 18, h - 42, 9, 0, Math.PI * 2);
+    ctx.arc(x - 12, h - 55, 13, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#d5ae64';
+    ctx.beginPath();
+    ctx.arc(x + 18, h - 42, 10, 0, Math.PI * 2);
     ctx.fill();
   }
 }, 18, 3.2);
@@ -1361,7 +1600,7 @@ verandahSet.add(parallaxFar, parallaxMid, parallaxNear);
 const audienceGroup = new THREE.Group();
 scene.add(audienceGroup);
 
-const blurredGuestColors = [0xe5989b, 0xa8dadc, 0xcdb4db, 0xffd166, 0xb7e4c7];
+const blurredGuestColors = [0x62694b, 0xc2c4b6, 0xd5ae64, 0xf4f1ea, 0x858c6c];
 
 for (let row = 0; row < 4; row++) {
   const zRow = -1.2 + row * 1.35;
@@ -1374,8 +1613,8 @@ for (let row = 0; row < 4; row++) {
       const guest = new THREE.Group();
       guest.position.set(g * 0.92, 0.52, zRow);
       const col = blurredGuestColors[Math.abs(row + g) % blurredGuestColors.length];
-      const coreMat = new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.48 });
-      const haloMat = new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.22 });
+      const coreMat = new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.52 });
+      const haloMat = new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.24 });
 
       const bCore = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.25, 0.7, 10), coreMat);
       bCore.position.y = 0.35;
@@ -1602,7 +1841,7 @@ function createBenchBalloonAndBowDecoration(seed = 0) {
   bowLoopR.position.x = 0.08;
   const ribbonTail = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.42, 0.02), envMats.carpetWhite);
   ribbonTail.position.y = -0.22;
-  const floralRose = new THREE.Mesh(new THREE.SphereGeometry(0.06, 10, 10), envMats.balloonBlush);
+  const floralRose = new THREE.Mesh(new THREE.SphereGeometry(0.06, 10, 10), envMats.balloonGold);
   floralRose.position.z = 0.03;
   decoGroup.add(bowKnot, bowLoopL, bowLoopR, ribbonTail, floralRose);
 
@@ -1671,16 +1910,12 @@ for (let i = 0; i < 11; i++) {
 }
 
 // ============================================================================
-// 14. FURNISHED ARCHITECTURAL SANCTUARY & ALTAR (`altar.jpg` — Request #1 & #2)
-//     - Removed left wooden lectern, `ഉയിർപ്പുകാലം` sign, and right Risen Christ statue
-//     - Cohesive Furnished Teakwood, Ivory-Alabaster, and Burnished Gold Finish
-//       (Zero clashing multi-colored noise)
+// 14. FURNISHED ARCHITECTURAL SANCTUARY & ALTAR (`altar.jpg`)
 // ============================================================================
 const altarGroup = new THREE.Group();
 altarGroup.position.set(0, 0, -9.8);
 churchSet.add(altarGroup);
 
-// 1. Stepped Semicircular Red-Carpeted Sanctuary Platform + Central 4-Step Staircase
 const bemaLower = new THREE.Mesh(new THREE.CylinderGeometry(4.4, 4.55, 0.16, 48), envMats.sanctuaryRedCarpet);
 bemaLower.position.set(0, 0.08, 1.25);
 const bemaUpper = new THREE.Mesh(new THREE.CylinderGeometry(3.85, 4.0, 0.42, 48), envMats.sanctuaryRedCarpet);
@@ -1696,8 +1931,6 @@ for (let st = 0; st < 4; st++) {
   altarGroup.add(stepBox);
 }
 
-// 2. Clean Furnished Teakwood Communion Railing Flanking the Central Staircase
-//    (Left lectern, Malayalam sign, and right Risen Christ statue completely removed!)
 [-1, 1].forEach((side) => {
   const startX = side * 0.82;
   const endX = side * 3.75;
@@ -1718,7 +1951,6 @@ for (let st = 0; st < 4; st++) {
   }
 });
 
-// 3. Coffered Furnished Teakwood & Gold Barrel Vaulted Sanctuary Ceiling
 function createCofferedVaultTexture() {
   const c = document.createElement('canvas');
   c.width = 512;
@@ -1753,7 +1985,6 @@ cofferedVault.rotation.y = Math.PI / 2;
 cofferedVault.position.set(0, 4.55, 0.8);
 altarGroup.add(cofferedVault);
 
-// 4. Finely Furnished Teakwood & Gold Forward Altar Table with Illuminated Last Supper Relief
 function createFurnishedAltarTable() {
   const tableGroup = new THREE.Group();
   tableGroup.position.set(0, 0.58, 1.55);
@@ -1763,7 +1994,6 @@ function createFurnishedAltarTable() {
   c.height = 512;
   const ctx = c.getContext('2d');
 
-  // Rich Polished Burmese Teakwood Body with Subtle Wood-Grain Texture
   const woodGrad = ctx.createLinearGradient(0, 120, 0, 512);
   woodGrad.addColorStop(0, '#5c361c');
   woodGrad.addColorStop(0.5, '#472814');
@@ -1771,7 +2001,6 @@ function createFurnishedAltarTable() {
   ctx.fillStyle = woodGrad;
   ctx.fillRect(50, 120, 924, 392);
 
-  // Fine Horizontal Teakwood Grain Lines
   ctx.strokeStyle = 'rgba(255, 215, 160, 0.08)';
   ctx.lineWidth = 2;
   for (let y = 130; y < 505; y += 8) {
@@ -1781,14 +2010,12 @@ function createFurnishedAltarTable() {
     ctx.stroke();
   }
 
-  // Burnished Gold Leaf Architectural Panel Molding
   ctx.strokeStyle = '#d9a738';
   ctx.lineWidth = 8;
   ctx.strokeRect(56, 126, 912, 380);
   ctx.strokeRect(82, 215, 150, 265);
   ctx.strokeRect(792, 215, 150, 265);
 
-  // Warm Golden-Lit "Last Supper" Sculpted Bas-Relief Panel in Center (`x = 260..764`)
   const reliefGrad = ctx.createRadialGradient(512, 345, 20, 512, 345, 250);
   reliefGrad.addColorStop(0, '#fff7d6');
   reliefGrad.addColorStop(0.6, '#f3d078');
@@ -1799,7 +2026,6 @@ function createFurnishedAltarTable() {
   ctx.lineWidth = 10;
   ctx.strokeRect(260, 215, 504, 265);
 
-  // Sculpted Golden-Ivory Last Supper Table & Figures Inside Bas-Relief
   ctx.fillStyle = '#fffdf9';
   ctx.fillRect(285, 365, 454, 52);
   ctx.strokeStyle = '#c8963e';
@@ -1818,7 +2044,6 @@ function createFurnishedAltarTable() {
     ctx.fill();
   }
 
-  // Crisp White Scalloped Altar Overcloth with Gold-Embroidered Medallions (`y = 35..195`)
   ctx.fillStyle = '#fffdf9';
   ctx.beginPath();
   ctx.moveTo(42, 35);
@@ -1833,7 +2058,6 @@ function createFurnishedAltarTable() {
   ctx.lineWidth = 5;
   ctx.stroke();
 
-  // 6 Gold-and-Crimson Embroidered Medallions Along the White Altar Cloth
   for (let m = 0; m < 6; m++) {
     const mx = 165 + m * 138;
     ctx.fillStyle = '#9e2a2b';
@@ -1864,16 +2088,12 @@ function createFurnishedAltarTable() {
 }
 altarGroup.add(createFurnishedAltarTable());
 
-// 5. COHESIVE FURNISHED WOOD, IVORY & GOLD TWO-TIER GOTHIC REREDOS ALTAR (Request #2!)
-//    Replaces the muddled multi-colored background with a rich, harmonious
-//    polished teakwood, warm ivory-alabaster, and burnished gold finish.
 function createFurnishedAltarReredosPlane() {
   const c = document.createElement('canvas');
   c.width = 1600;
   c.height = 1600;
   const ctx = c.getContext('2d');
 
-  // 1. Outer Pointed Sanctuary Arch in Finely Furnished Teakwood & Burnished Gold Trim
   drawSVGPath(
     ctx,
     'M80,1600 L80,720 Q80,95 800,35 Q1520,95 1520,720 L1520,1600 Z',
@@ -1882,7 +2102,6 @@ function createFurnishedAltarReredosPlane() {
     14
   );
 
-  // Inner Sanctuary Arch Backdrop: Warm Satin Ivory & Soft Celestial Gold Brocade
   const archGrad = ctx.createRadialGradient(800, 520, 80, 800, 620, 720);
   archGrad.addColorStop(0, '#fdfbf7');
   archGrad.addColorStop(0.55, '#f3ead8');
@@ -1895,7 +2114,6 @@ function createFurnishedAltarReredosPlane() {
     16
   );
 
-  // Subtle Gold Cusp Rosettes Along the Inner Arch Border
   for (let s = 0; s <= 36; s++) {
     const t = s / 36;
     const angle = lerp(Math.PI * 0.94, Math.PI * 0.06, t);
@@ -1907,7 +2125,6 @@ function createFurnishedAltarReredosPlane() {
     ctx.fill();
   }
 
-  // Subtle Warm Gold Rays & Halo Glow Behind the Reredos Spires
   const haloGrad = ctx.createRadialGradient(800, 380, 30, 800, 380, 420);
   haloGrad.addColorStop(0, 'rgba(246, 189, 96, 0.32)');
   haloGrad.addColorStop(1, 'rgba(246, 189, 96, 0)');
@@ -1916,16 +2133,13 @@ function createFurnishedAltarReredosPlane() {
   ctx.arc(800, 380, 420, 0, Math.PI * 2);
   ctx.fill();
 
-  // 2. Helper: Furnished Fluted Column with Teakwood Plinth & Burnished Gold Capital
   function drawFurnishedColumn(cx, topY, bottomY, w) {
     const h = bottomY - topY;
-    // Polished Teakwood Plinth Base
     ctx.fillStyle = '#4a2b16';
     ctx.fillRect(cx - w * 0.65, bottomY - 38, w * 1.3, 38);
     ctx.fillStyle = '#d9a738';
     ctx.fillRect(cx - w * 0.6, bottomY - 46, w * 1.2, 8);
 
-    // Warm Ivory-Alabaster Fluted Column Shaft
     ctx.fillStyle = '#fffdf9';
     ctx.fillRect(cx - w * 0.48, topY + 36, w * 0.96, h - 82);
     ctx.strokeStyle = '#d8cbb8';
@@ -1937,11 +2151,9 @@ function createFurnishedAltarReredosPlane() {
       ctx.stroke();
     }
 
-    // Polished Teakwood & Gold Necking Band
     ctx.fillStyle = '#4a2b16';
     ctx.fillRect(cx - w * 0.54, topY + 34, w * 1.08, 14);
 
-    // Burnished Gold Corinthian Capital
     ctx.fillStyle = '#d99b26';
     ctx.beginPath();
     ctx.moveTo(cx - w * 0.68, topY);
@@ -1952,16 +2164,13 @@ function createFurnishedAltarReredosPlane() {
     ctx.fill();
   }
 
-  // 3. Helper: Pointed Gothic Niche in Furnished Teakwood & Ivory-Gold with Sculpted Statue
   function drawFurnishedGothicNiche(cx, bottomY, w, h, isCenter = false) {
-    // Warm Ivory Recessed Bay Panel with Gold Trim
     ctx.fillStyle = '#f7f2e7';
     ctx.strokeStyle = '#d9a738';
     ctx.lineWidth = 4;
     ctx.fillRect(cx - w * 0.56, bottomY - h - 18, w * 1.12, h + 18);
     ctx.strokeRect(cx - w * 0.56, bottomY - h - 18, w * 1.12, h + 18);
 
-    // Polished Teakwood Pointed Arch Niche Interior Framed in Ivory & Gold
     drawSVGPath(
       ctx,
       `M${cx - w * 0.46},${bottomY} L${cx - w * 0.46},${bottomY - h * 0.62} Q${cx - w * 0.46},${bottomY - h * 0.94} ${cx},${bottomY - h} Q${cx + w * 0.46},${bottomY - h * 0.94} ${cx + w * 0.46},${bottomY - h * 0.62} L${cx + w * 0.46},${bottomY} Z`,
@@ -1977,11 +2186,9 @@ function createFurnishedAltarReredosPlane() {
       3.5
     );
 
-    // Gold Pedestal Inside Niche
     ctx.fillStyle = '#c8963e';
     ctx.fillRect(cx - w * 0.28, bottomY - 26, w * 0.56, 26);
 
-    // Cohesive Ivory & Gold-Draped Saint Statue Inside Niche
     const sy = bottomY - 26;
     const sh = h * 0.66;
     ctx.fillStyle = '#fffdf9';
@@ -1993,7 +2200,6 @@ function createFurnishedAltarReredosPlane() {
     ctx.closePath();
     ctx.fill();
 
-    // Draped Mantle (Crimson-Gold for Center Sacred Heart / St. Thomas, Burnished Gold for Side Saints)
     ctx.fillStyle = isCenter ? '#9e2a2b' : '#d9a738';
     ctx.beginPath();
     ctx.moveTo(cx - w * 0.22, sy - sh * 0.15);
@@ -2003,7 +2209,6 @@ function createFurnishedAltarReredosPlane() {
     ctx.closePath();
     ctx.fill();
 
-    // Golden Halo & Head
     ctx.strokeStyle = '#fbbf24';
     ctx.lineWidth = 3;
     ctx.beginPath();
@@ -2016,14 +2221,12 @@ function createFurnishedAltarReredosPlane() {
     ctx.fill();
   }
 
-  // 4. TWO-TIER FURNISHED IVORY, TEAKWOOD & GOLD GOTHIC REREDOS
   ctx.fillStyle = '#fffdf9';
   ctx.strokeStyle = '#d9a738';
   ctx.lineWidth = 6;
   ctx.fillRect(510, 480, 580, 610);
   ctx.strokeRect(510, 480, 580, 610);
 
-  // Upper Tier (3 Pointed Niches + 4 Fluted Columns: `y = 480..750`)
   drawFurnishedGothicNiche(625, 745, 135, 225, false);
   drawFurnishedGothicNiche(800, 745, 148, 250, true);
   drawFurnishedGothicNiche(975, 745, 135, 225, false);
@@ -2032,7 +2235,6 @@ function createFurnishedAltarReredosPlane() {
     drawFurnishedColumn(cx, 480, 750, 42);
   });
 
-  // Top Crown: 3 Crocketed Ivory & Gold Gables with Crosses + 4 Spires
   [
     { cx: 625, w: 156, baseY: 485, peakY: 310, crossH: 52 },
     { cx: 800, w: 176, baseY: 485, peakY: 235, crossH: 64 },
@@ -2057,7 +2259,6 @@ function createFurnishedAltarReredosPlane() {
     ctx.arc(gb.cx, gb.peakY + 85, 15, 0, Math.PI * 2);
     ctx.fill();
 
-    // Teakwood Pedestal & Ivory-Gold Cross at Gable Apex
     ctx.fillStyle = '#4a2b16';
     ctx.fillRect(gb.cx - 12, gb.peakY - 16, 24, 18);
     drawSVGPath(
@@ -2069,7 +2270,6 @@ function createFurnishedAltarReredosPlane() {
     );
   });
 
-  // 4 Narrower Pointed Spires Above Columns
   [542, 712, 888, 1058].forEach((px, idx) => {
     const py = idx === 1 || idx === 2 ? 290 : 345;
     drawSVGPath(
@@ -2081,13 +2281,11 @@ function createFurnishedAltarReredosPlane() {
     );
   });
 
-  // Moulded Teakwood & Gold Cornice Between Tiers (`y = 748..776`)
   ctx.fillStyle = '#fffdf9';
   ctx.fillRect(495, 748, 610, 20);
   ctx.fillStyle = '#4a2b16';
   ctx.fillRect(495, 766, 610, 10);
 
-  // Lower Tier (3 Pointed Niches + 4 Fluted Columns: `y = 776..1080`)
   drawFurnishedGothicNiche(625, 1075, 140, 265, false);
   drawFurnishedGothicNiche(800, 1075, 155, 280, true);
   drawFurnishedGothicNiche(975, 1075, 140, 265, false);
@@ -2096,7 +2294,6 @@ function createFurnishedAltarReredosPlane() {
     drawFurnishedColumn(cx, 776, 1080, 46);
   });
 
-  // 4 Cohesive Ivory-and-Gold Side Statues on Teakwood Corbels
   function drawFurnishedSideStatue(cx, baseY, hasWings = false) {
     ctx.fillStyle = '#4a2b16';
     ctx.fillRect(cx - 26, baseY, 52, 26);
@@ -2121,7 +2318,6 @@ function createFurnishedAltarReredosPlane() {
   drawFurnishedSideStatue(345, 1045, true);
   drawFurnishedSideStatue(1255, 1045, true);
 
-  // Central Teakwood & Gold Crucifix Above Tabernacle
   drawSVGPath(
     ctx,
     'M794,915 L806,915 L806,1125 L794,1125 Z M738,958 L862,958 L862,970 L738,970 Z',
@@ -2131,7 +2327,6 @@ function createFurnishedAltarReredosPlane() {
   );
   drawSVGPath(ctx, 'M748,964 L800,982 L852,964 M800,975 L800,1065', null, '#f3d078', 8);
 
-  // 5. Furnished Teakwood & Gold Diamond-Carved Retable Base (`y = 1085..1380`)
   const retableGrad = ctx.createLinearGradient(0, 1085, 0, 1380);
   retableGrad.addColorStop(0, '#5c361c');
   retableGrad.addColorStop(1, '#3d2210');
@@ -2156,7 +2351,6 @@ function createFurnishedAltarReredosPlane() {
     }
   }
 
-  // Central Ivory & Gold Tabernacle on Retable Base
   ctx.fillStyle = '#fffdf9';
   ctx.strokeStyle = '#d9a738';
   ctx.lineWidth = 5;
@@ -2168,11 +2362,9 @@ function createFurnishedAltarReredosPlane() {
   ctx.fill();
   ctx.stroke();
 
-  // Adoring Angels on Left & Right of Retable Base
   drawFurnishedSideStatue(490, 1215, true);
   drawFurnishedSideStatue(1110, 1215, true);
 
-  // Cohesive Warm Ivory & Gold Brocade Sanctuary Side Drapes
   [265, 1335].forEach((cx) => {
     ctx.fillStyle = '#e8dec8';
     ctx.fillRect(cx - 95, 1240, 190, 360);
@@ -2726,7 +2918,6 @@ function animate() {
   smoothProgress = clamp(smoothProgress + stepDelta, 0, 1);
 
   progressBar.style.width = `${smoothProgress * 100}%`;
-  scrollHint.style.opacity = smoothProgress > 0.02 ? '0' : '1';
 
   const scaled = smoothProgress * 8;
   const sceneIdx = Math.min(Math.floor(scaled), 7);
@@ -2737,6 +2928,16 @@ function animate() {
   subtitleOverlay.classList.toggle('hidden', isDroneFinale);
   weddingSkyBanner.classList.toggle('visible', isDroneFinale);
   weddingBottomBanner.classList.toggle('visible', isDroneFinale);
+
+  // Progress-Bar Background Color Fill on Scroll Dialog Box (No Scene Numbers — Request #3)
+  scrollHint.classList.toggle('hidden', isDroneFinale);
+  if (!isDroneFinale) {
+    const dialogFillPct = clamp((scaled / 7.45) * 100, 0, 100);
+    scrollHint.style.setProperty('--scroll-fill', `${dialogFillPct.toFixed(1)}%`);
+    scrollHintText.textContent = smoothProgress < 0.08
+      ? 'Scroll gently to unfold the story'
+      : 'Keep scrolling to unfold the story';
+  }
 
   subtitleSlides.forEach((slide, idx) => {
     slide.classList.toggle('active', idx === activeSubtitle && !isDroneFinale);
